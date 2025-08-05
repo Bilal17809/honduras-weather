@@ -5,68 +5,56 @@ import 'theme.dart';
 TextStyle headlineLargeStyle(BuildContext context) => TextStyle(
   fontSize: mobileHeight(context) * 0.14,
   fontWeight: FontWeight.w700,
-  color: getTextColor(context),
+  color: primaryText(context),
   shadows: kShadow,
 );
 
 TextStyle headlineMediumStyle(BuildContext context) => TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.w700,
-  color: getTextColor(context),
+  color: primaryText(context),
 );
 
 TextStyle headlineSmallStyle(BuildContext context) => TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w500,
-  color: getTextColor(context),
+  color: primaryText(context),
 );
 
 TextStyle titleBoldMediumStyle(BuildContext context) => TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
-  color: getTextColor(context),
+  color: primaryText(context),
 );
 
 TextStyle titleBoldLargeStyle(BuildContext context) => TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
-  color: getTitleTextColor(context),
+  color: getSecondaryColor(context),
 );
 
 TextStyle titleSmallStyle(BuildContext context) => TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w500,
-  color: getTextColor(context),
-);
-
-TextStyle titleSmallBoldStyle(BuildContext context) => TextStyle(
-  fontSize: 16,
-  fontWeight: FontWeight.bold,
-  color: getTextColor(context),
+  color: primaryText(context),
 );
 
 TextStyle bodyLargeStyle(BuildContext context) => TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w400,
-  color: getTextColor(context),
+  color: primaryText(context),
 );
 
 TextStyle bodyMediumStyle(BuildContext context) => TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
-  color: getSubTextColor(context),
+  color: primaryText(context),
 );
 
-TextStyle bodyBoldMediumStyle(BuildContext context) => TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.bold,
-  color: getSubTextColor(context),
-);
-
-TextStyle bodyBoldSmallStyle(BuildContext context) => TextStyle(
+TextStyle bodySmallStyle(BuildContext context) => TextStyle(
   fontSize: 12,
-  fontWeight: FontWeight.bold,
-  color: getTextColor(context),
+  fontWeight: FontWeight.w600,
+  color: primaryText(context),
 );
 final List<Shadow> kShadow = [
   Shadow(

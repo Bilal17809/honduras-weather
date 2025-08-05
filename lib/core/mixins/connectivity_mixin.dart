@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../services/services.dart';
 import '../common/app_exceptions.dart';
-import '../utils/dialog_utils.dart';
+import '../utils/connectivity_dialog.dart';
 
 mixin ConnectivityMixin on GetxController {
   final ConnectivityService connectivityService = ConnectivityService.instance;
@@ -41,7 +41,7 @@ mixin ConnectivityMixin on GetxController {
     BuildContext? context,
   }) async {
     if (!connectivityService.isConnectedRx.value && context != null) {
-      await DialogUtil.showNoInternetDialog(context, onRetry: action);
+      await ConnectivityUtil.showNoInternetDialog(context, onRetry: action);
       return false;
     }
     try {

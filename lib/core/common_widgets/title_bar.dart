@@ -6,89 +6,67 @@ import '../constants/constant.dart';
 
 class TitleBar extends StatelessWidget {
   final List<Widget>? actions;
-  final String? title;
-  final String subtitle;
+  final String title;
   final bool useBackButton;
   final VoidCallback? onBackTap;
 
   const TitleBar({
     super.key,
-    required this.subtitle,
+    required this.title,
     this.useBackButton = true,
     this.actions,
     this.onBackTap,
-    this.title,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool hasTitle = title != null;
-
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            useBackButton
-                ? IconActionButton(
-                    isCircular: true,
-                    backgroundColor: getSecondaryColor(context),
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      Future.delayed(const Duration(milliseconds: 150), () {
-                        Get.back();
-                      });
-                    },
-                    icon: Icons.arrow_back,
-                    color: getIconColor(context),
-                    size: secondaryIcon(context) * 0.6,
-                  )
-                : IconActionButton(
-                    onTap: () => Scaffold.of(context).openDrawer(),
-                    icon: Icons.menu,
-                    color: getIconColor(context),
-                    size: secondaryIcon(context),
-                  ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (hasTitle)
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            color: getIconColor(context),
-                            size: secondaryIcon(context),
-                          ),
-                        ],
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                useBackButton
+                    ? IconActionButton(
+                        isCircular: true,
+                        backgroundColor: getSecondaryColor(context),
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          Future.delayed(const Duration(milliseconds: 150), () {
+                            if (onBackTap != null) {
+                              onBackTap!();
+                            } else {
+                              Get.back();
+                            }
+                          });
+                        },
+                        icon: Icons.arrow_back_ios_new,
+                        color: getIconColor(context),
+                        size: secondaryIcon(context) * 0.6,
+                      )
+                    : IconActionButton(
+                        onTap: () => Scaffold.of(context).openDrawer(),
+                        icon: Icons.menu,
+                        color: getIconColor(context),
+                        size: secondaryIcon(context),
                       ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (hasTitle)
-                          Text(title!, style: titleBoldMediumStyle(context)),
-                        Text(
-                          subtitle,
-                          style: (hasTitle
-                              ? bodyLargeStyle(context)
-                              : titleBoldMediumStyle(context)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                Row(mainAxisSize: MainAxisSize.min, children: actions ?? []),
+              ],
             ),
-            if (actions != null) ...actions!,
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Text(
+              title,
+              style: titleBoldMediumStyle(context),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }

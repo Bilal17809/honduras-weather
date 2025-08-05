@@ -49,7 +49,7 @@ class InputField extends StatelessWidget {
         hintText: hintText,
         hintStyle:
             hintStyle ??
-            bodyBoldSmallStyle(context).copyWith(color: primaryColorLight),
+            bodySmallStyle(context).copyWith(color: primaryColorLight, fontWeight: FontWeight.bold),
         contentPadding: contentPadding,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
@@ -74,7 +74,7 @@ class InputField extends StatelessWidget {
       ),
       style:
           textStyle ??
-          bodyBoldSmallStyle(context).copyWith(color: primaryColorLight),
+          bodySmallStyle(context).copyWith(color: primaryColorLight, fontWeight: FontWeight.bold),
       onChanged: onChanged,
       onSubmitted: onSubmitted,
     );

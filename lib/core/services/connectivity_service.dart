@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../utils/dialog_utils.dart';
+import '../utils/connectivity_dialog.dart';
 
 class ConnectivityService extends GetxService {
   static ConnectivityService get instance => Get.find();
@@ -76,12 +76,18 @@ class ConnectivityService extends GetxService {
       final hasInternet = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
 
       if (!hasInternet) {
-        await DialogUtil.showNoInternetDialog(Get.context!, onRetry: onRetry);
+        await ConnectivityUtil.showNoInternetDialog(
+          Get.context!,
+          onRetry: onRetry,
+        );
         return false;
       }
       return true;
     } catch (_) {
-      await DialogUtil.showNoInternetDialog(Get.context!, onRetry: onRetry);
+      await ConnectivityUtil.showNoInternetDialog(
+        Get.context!,
+        onRetry: onRetry,
+      );
       return false;
     }
   }

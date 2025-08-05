@@ -28,12 +28,15 @@ class SearchBarField extends StatelessWidget {
     return InputField(
       controller: controller,
       hintText: 'Search',
-      textStyle: bodyBoldMediumStyle(
-        context,
-      ).copyWith(color: textColor, fontFamily: fontFamily),
-      hintStyle: bodyBoldMediumStyle(context).copyWith(
+      textStyle: bodyMediumStyle(context).copyWith(
+        color: textColor,
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.bold,
+      ),
+      hintStyle: bodyMediumStyle(context).copyWith(
         color: textColor.withValues(alpha: 0.7),
         fontFamily: fontFamily,
+        fontWeight: FontWeight.bold,
       ),
       cursorColor: textColor,
       backgroundColor: backgroundColor,

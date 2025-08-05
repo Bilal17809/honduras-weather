@@ -4,7 +4,7 @@ import '../services/services.dart';
 import '../constants/constant.dart';
 import '/core/theme/theme.dart';
 
-class DialogUtil {
+class ConnectivityUtil {
   static Future<void> showNoInternetDialog(
     BuildContext context, {
     required Future<void> Function() onRetry,

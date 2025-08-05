@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: kElementGap),
                       child: Image.asset(
-                        'images/icon.png',
+                        'images/weather_icon.png',
                         height: primaryIcon(context),
                       ),
                     ),
@@ -71,7 +71,7 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(
                 Icons.dark_mode_rounded,
                 size: 24,
-                color: getTextColor(Get.context!),
+                color: primaryText(Get.context!),
               ),
               title: Text(
                 Get.theme.brightness == Brightness.dark
@@ -122,7 +122,7 @@ class DrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, size: 24, color: getTextColor(Get.context!)),
+      leading: Icon(icon, size: 24, color: primaryText(Get.context!)),
       title: Text(title, style: titleSmallStyle(context)),
       onTap: onTap,
     );
