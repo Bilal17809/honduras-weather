@@ -56,7 +56,7 @@ BoxDecoration roundedInnerDecor(BuildContext context) => BoxDecoration(
     BoxShadow(
       color: isDarkMode(context)
           ? darkBgColor.withValues(alpha: 0.3)
-          : kBlack.withValues(alpha: 0.1),
+          : kWhite.withValues(alpha: 0.1),
       blurRadius: 6,
       spreadRadius: 1,
       offset: Offset(0, 2),
@@ -154,8 +154,8 @@ Color getSecondaryColor(BuildContext context) => isDarkMode(context)
 Color getBgColor(BuildContext context) =>
     isDarkMode(context) ? darkBgColor : lightBgColor;
 
-// Color primaryText(BuildContext context) =>
-//     isDarkMode(context) ? textWhiteColor : textBlackColor;
+Color secondaryText(BuildContext context) =>
+    isDarkMode(context) ? textWhiteColor : textBlackColor;
 
 Color primaryText(BuildContext context) =>
     isDarkMode(context) ? textWhiteColor : textWhiteColor;
@@ -186,7 +186,7 @@ LinearGradient kContainerGradient(BuildContext context) {
     end: Alignment.bottomCenter,
     colors: isDarkMode(context)
         ? [kWhite.withValues(alpha: 0.4), kWhite.withValues(alpha: 0.2)]
-        : [primaryColorLight, secondaryColorLight.withValues(alpha: 0.6)],
+        : [primaryColorLight, secondaryColorLight],
     stops: [0.05, 0.75],
   );
 }

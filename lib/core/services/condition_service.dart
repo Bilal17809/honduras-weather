@@ -22,13 +22,13 @@ class ConditionService extends GetxController {
         ? weatherList[mainIndex]
         : null;
     mainCityWeather.value = newWeather;
-    // final currentCity = Get.find<HomeController>().currentLocationCity;
-    // if (currentCity != null && currentCity.city == cityName) {
-    //   currentLocationWeather.value = newWeather;
-    // }
-    if (mainCityWeather.value != null) {
-      WidgetUpdateManager.updateWeatherWidget();
+    final currentCity = Get.find<HomeController>().currentLocationCity;
+    if (currentCity != null && currentCity.city == cityName) {
+      currentLocationWeather.value = newWeather;
     }
+    // if (mainCityWeather.value != null) {
+    //   WidgetUpdateManager.updateWeatherWidget();
+    // }
   }
 
   void updateWeeklyForecast(List<ForecastModel> forecastList) {
@@ -71,6 +71,7 @@ class ConditionService extends GetxController {
 
   String get minTemp => _getTodayForecastValue('minTemp');
   String get maxTemp => _getTodayForecastValue('temp');
+  String get condition => mainCityWeather.value?.condition ?? 'N/a';
   String get chanceOfRain => '${mainCityWeather.value?.chanceOfRain ?? '--'}%';
   String get humidity => '${mainCityWeather.value?.humidity ?? '--'}%';
   String get windSpeed =>

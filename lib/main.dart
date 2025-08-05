@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:honduras_weather/presentation/splash/view/splash_view.dart';
 import '/core/binders/dependency_injection.dart';
 import '/core/local_storage/local_storage.dart';
-import '/presentation/home/view/home_view.dart';
 import 'core/theme/theme.dart';
 
 Future<void> main() async {
@@ -35,7 +35,7 @@ class HondurasWeather extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-      home: const HomeView(),
+      home: const SplashView(),
     );
   }
 }

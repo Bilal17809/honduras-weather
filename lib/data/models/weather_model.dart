@@ -4,6 +4,7 @@ import 'aqi_model.dart';
 class WeatherModel {
   final String cityName;
   final double temperature;
+  final double feelsLike;
   final String region;
   final String condition;
   final int humidity;
@@ -23,6 +24,7 @@ class WeatherModel {
     required this.iconUrl,
     required this.code,
     this.airQuality,
+    required this.feelsLike,
     required this.region,
   });
 
@@ -36,6 +38,7 @@ class WeatherModel {
       cityName: json['location']['name'],
       region: json['location']['region'],
       temperature: (current['temp_c'] as num).toDouble(),
+      feelsLike: (current['feelslike_c'] as num).toDouble(),
       condition: condition['text'],
       humidity: current['humidity'],
       windSpeed: WeatherParsingService.parseWindSpeed(current),

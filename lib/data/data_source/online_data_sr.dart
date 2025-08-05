@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import '../../presentation/splash/controller/splash_controller.dart';
+import '/presentation/splash/controller/splash_controller.dart';
 import '../models/forecast_model.dart';
 import '../models/weather_model.dart';
 import '/core/common/app_exceptions.dart';

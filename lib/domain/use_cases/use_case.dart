@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import '../../data/models/forecast_model.dart';
-import '../../data/models/weather_model.dart';
+import '/data/models/forecast_model.dart';
+import '/data/models/weather_model.dart';
 import '../repo/weather_repo.dart';
 import '/core/common/app_exceptions.dart';
 import '/core/local_storage/local_storage.dart';

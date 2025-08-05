@@ -4,7 +4,6 @@ const Color transparent = Colors.transparent;
 
 // Whites
 const Color kWhite = Color(0xFFFFFFFF);
-const Color kLightWhite = Color(0xFFF7FBFF);
 
 // Blacks
 const Color kBlack = Color(0xFF1C1C1C);

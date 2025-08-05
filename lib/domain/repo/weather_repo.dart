@@ -1,5 +1,5 @@
-import '../../data/models/forecast_model.dart';
-import '../../data/models/weather_model.dart';
+import '/data/models/forecast_model.dart';
+import '/data/models/weather_model.dart';
 
 abstract class WeatherRepo {
   Future<(WeatherModel, List<ForecastModel>)> getWeatherAndForecast(
