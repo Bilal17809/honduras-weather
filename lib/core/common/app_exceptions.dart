@@ -12,4 +12,5 @@ class AppExceptions {
   final String noCityInApi = 'City name not found in the response';
   final String firstLaunch = 'Error checking first launch';
   final String noInternet = 'No internet';
+  final String failMap = 'Failed to launch Google Maps';
 }
