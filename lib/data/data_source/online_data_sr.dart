@@ -23,8 +23,8 @@ class OnlineDataSource {
       final data = jsonDecode(response.body);
       final splashController = Get.find<SplashController>();
       final latLonKey = '${lat.toStringAsFixed(4)},${lon.toStringAsFixed(4)}';
-      // splashController.cacheCityData(latLonKey, data);
-      // splashController.rawForecastData.value = data;
+      splashController.cacheCityData(latLonKey, data);
+      splashController.rawForecastData.value = data;
       final current = WeatherModel.fromJson(data);
       final forecastDays = data['forecast']['forecastday'] as List;
       final forecast = forecastDays

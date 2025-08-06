@@ -8,7 +8,24 @@ import 'widgets/forecast_container.dart';
 import 'widgets/weather_card.dart';
 
 class DailyForecastView extends StatelessWidget {
-  const DailyForecastView({super.key});
+  final String weatherIconPath;
+  final String condition;
+  final int temperature;
+  final int feelsLike;
+  final String precipitation;
+  final String humidity;
+  final String windSpeed;
+
+  const DailyForecastView({
+    super.key,
+    required this.weatherIconPath,
+    required this.condition,
+    required this.temperature,
+    required this.feelsLike,
+    required this.precipitation,
+    required this.humidity,
+    required this.windSpeed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +46,6 @@ class DailyForecastView extends StatelessWidget {
               bottom: 0,
               child: const ForecastContainer(),
             ),
-
             Positioned(
               top: 0,
               left: 0,
@@ -41,34 +57,28 @@ class DailyForecastView extends StatelessWidget {
                       title: 'Next 7 Days',
                       actions: [
                         IconActionButton(
-                          onTap: () => Get.to(() => CitiesView()),
+                          onTap: () => Get.to(() => const CitiesView()),
                           icon: Icons.add,
                           color: getIconColor(context),
                           size: secondaryIcon(context),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: mobileHeight(context) * 0.14,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 24,
-                        itemBuilder: (context, index) {
-                          return HourlyForecast(
-                            day: 'Monday',
-                            isSelected: 'Monday' == 'Monday',
-                            isFirst: index == 0,
-                            isLast: index == 6,
-                          );
-                        },
-                      ),
-                    ),
+                    const HourlyForecastList(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: kBodyHp * 2,
                         vertical: kElementGap,
                       ),
-                      child: const CurrentWeatherCard(),
+                      child: CurrentWeatherCard(
+                        weatherIconPath: weatherIconPath,
+                        condition: condition,
+                        temperature: temperature,
+                        feelsLike: feelsLike,
+                        precipitation: precipitation,
+                        humidity: humidity,
+                        windSpeed: windSpeed,
+                      ),
                     ),
                   ],
                 ),

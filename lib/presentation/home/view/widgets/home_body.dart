@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:honduras_weather/core/services/condition_service.dart';
 import 'package:honduras_weather/presentation/daily_forecast/view/daily_forecast_view.dart';
 import 'package:honduras_weather/presentation/home/controller/home_controller.dart';
+import '/core/services/services.dart';
 import '/core/animation/view/animated_weather_icon.dart';
 import '/core/utils/weather_utils.dart';
 import '/core/constants/constant.dart';
 import '/core/theme/theme.dart';
 import '/core/common_widgets/common_widgets.dart';
 import '/presentation/cities/view/cities_view.dart';
-import 'top_section.dart';
+import 'home_header.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -18,14 +18,15 @@ class HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
     final conditionService = Get.find<ConditionService>();
+    final weatherService = Get.find<LoadWeatherService>();
     return Obx(() {
       final selectedCity = homeController.selectedCity.value;
       final weather = selectedCity != null
           ? homeController.conditionService.allCitiesWeather[selectedCity
                 .cityAscii]
           : null;
-
       final temp = weather?.temperature.round().toString() ?? '--';
+
       return Column(
         children: [
           TitleBar(
@@ -33,7 +34,15 @@ class HomeBody extends StatelessWidget {
             useBackButton: false,
             actions: [
               IconActionButton(
-                onTap: () => Get.to(() => CitiesView()),
+                onTap: () async {
+                  final selectedCity = await Get.to(() => const CitiesView());
+                  if (selectedCity != null) {
+                    homeController.selectedCity.value = selectedCity;
+                    await weatherService.loadWeatherForAllCities([
+                      selectedCity,
+                    ], selectedCity: selectedCity);
+                  }
+                },
                 icon: Icons.add,
                 color: getIconColor(context),
                 size: secondaryIcon(context),
@@ -44,7 +53,7 @@ class HomeBody extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: kBodyHp * 2),
             child: Column(
               children: [
-                const TopSection(),
+                const HomeHeader(),
                 const SizedBox(height: kElementGap),
                 Container(
                   decoration: roundedDecor(context),
@@ -71,7 +80,7 @@ class HomeBody extends StatelessWidget {
                             Text(
                               maxLines: 2,
                               softWrap: true,
-                              conditionService.condition,
+                              weather.condition,
                               style: bodyLargeStyle(
                                 context,
                               ).copyWith(fontWeight: FontWeight.bold),
@@ -134,7 +143,21 @@ class HomeBody extends StatelessWidget {
                     children: [
                       Text('Today', style: titleBoldMediumStyle(context)),
                       GestureDetector(
-                        onTap: () => Get.to(() => DailyForecastView()),
+                        onTap: () {
+                          Get.to(
+                            () => DailyForecastView(
+                              weatherIconPath: WeatherUtils.getWeatherIconPath(
+                                WeatherUtils.getWeatherIcon(weather.code),
+                              ),
+                              condition: weather.condition,
+                              temperature: weather.temperature.round(),
+                              feelsLike: weather.feelsLike.round(),
+                              precipitation: conditionService.chanceOfRain,
+                              humidity: conditionService.humidity,
+                              windSpeed: conditionService.windSpeed,
+                            ),
+                          );
+                        },
                         child: Text(
                           'Next 7 Days >',
                           style: bodyLargeStyle(
@@ -149,21 +172,7 @@ class HomeBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: kElementGap),
-          SizedBox(
-            height: mobileHeight(context) * 0.14,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 24,
-              itemBuilder: (context, index) {
-                return HourlyForecast(
-                  day: 'Monday',
-                  isSelected: 'Monday' == 'Monday',
-                  isFirst: index == 0,
-                  isLast: index == 6,
-                );
-              },
-            ),
-          ),
+          const HourlyForecastList(),
         ],
       );
     });

@@ -33,7 +33,7 @@ class CityStorageService {
         return currentLocationCity;
       }
       return allCities.firstWhere(
-        (city) => city.city.toLowerCase() == 'nukualofa',
+        (city) => city.cityAscii.toLowerCase() == 'tegucigalpa',
         orElse: () => allCities.first,
       );
     } catch (e) {

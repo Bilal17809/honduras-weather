@@ -26,18 +26,12 @@ class ForecastRow extends StatelessWidget {
         horizontal: kElementGap,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             width: mobileWidth(context) * 0.15,
-            child: Text(
-              day,
-              style: bodyMediumStyle(
-                context,
-              ).copyWith(color: secondaryText(context)),
-            ),
+            child: Text(day, style: bodyMediumStyle(context)),
           ),
-          SizedBox(width: mobileWidth(context) * 0.08),
           iconUrl.isNotEmpty
               ? Image.network(
                   iconUrl.startsWith('http') ? iconUrl : 'https:$iconUrl',
@@ -47,25 +41,22 @@ class ForecastRow extends StatelessWidget {
                   errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.wb_sunny,
                     size: mediumIcon(context),
-                    color: kWhite,
+                    color: getPrimaryColor(context),
                   ),
                 )
               : Icon(Icons.wb_sunny, size: mediumIcon(context)),
-          SizedBox(width: mobileWidth(context) * 0.08),
+          Spacer(),
           Text(
             '$maxTemp°/$minTemp°',
-            style: bodyMediumStyle(
-              context,
-            ).copyWith(color: secondaryText(context)),
+            style: bodyMediumStyle(context),
             textAlign: TextAlign.center,
           ),
           SizedBox(width: mobileWidth(context) * 0.08),
           Flexible(
+            flex: 2,
             child: Text(
               condition,
-              style: bodyMediumStyle(
-                context,
-              ).copyWith(color: secondaryText(context)),
+              style: bodyMediumStyle(context),
               textAlign: TextAlign.start,
               maxLines: 2,
               softWrap: true,

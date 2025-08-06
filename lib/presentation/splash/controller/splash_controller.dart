@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../../../core/common/app_exceptions.dart';
+import '/core/common/app_exceptions.dart';
+import '/presentation/home/controller/home_controller.dart';
 import '/core/local_storage/local_storage.dart';
 import '/core/mixins/connectivity_mixin.dart';
 import '/core/services/services.dart';
@@ -32,7 +33,9 @@ class SplashController extends GetxController with ConnectivityMixin {
   final currentLocationCity = Rx<CityModel?>(null);
   final selectedCity = Rx<CityModel?>(null);
   final isFirstLaunch = true.obs;
-  static final Map<String, Map<String, dynamic>> _rawDataStorage = {};
+  final RxMap<String, dynamic> _rawDataStorage =
+      <String, Map<String, dynamic>>{}.obs;
+  final rawForecastData = <String, dynamic>{}.obs;
   var showButton = false.obs;
 
   @override
@@ -53,25 +56,25 @@ class SplashController extends GetxController with ConnectivityMixin {
       isLoading.value = true;
       isDataLoaded.value = false;
       allCities.value = await cityService.loadAllCities();
-      // await _checkFirstLaunch();
+      await _checkFirstLaunch();
       currentLocationCity.value = await currentLocationService
           .getCurrentLocationCity(allCities);
-      // if (isFirstLaunch.value) {
-      //   await _setupFirstLaunch();
-      // }
-      await _setupFirstLaunch();
-      // } else {
-      //   selectedCity.value = await cityStorageService.loadSelectedCity(
-      //     allCities: allCities,
-      //     currentLocationCity: currentLocationCity.value,
-      //   );
-      //   await cityStorageService.saveSelectedCity(selectedCity.value);
-      // }
+      if (isFirstLaunch.value) {
+        await _setupFirstLaunch();
+      } else {
+        selectedCity.value = await cityStorageService.loadSelectedCity(
+          allCities: allCities,
+          currentLocationCity: currentLocationCity.value,
+        );
+        await cityStorageService.saveSelectedCity(selectedCity.value);
+      }
       await loadWeatherService.loadWeatherForAllCities(
         allCities,
         selectedCity: selectedCity.value,
         currentLocationCity: currentLocationCity.value,
       );
+      _updateRawForecastDataForCurrentCity();
+      Get.find<HomeController>().isWeatherDataLoaded.value = true;
       isDataLoaded.value = true;
     } catch (e) {
       debugPrint('${AppExceptions().errorAppInit}: $e');
@@ -82,28 +85,52 @@ class SplashController extends GetxController with ConnectivityMixin {
     }
   }
 
+  Future<void> _checkFirstLaunch() async {
+    try {
+      final savedCityJson = await localStorage.getString('selected_city');
+      final hasCurrentLocation =
+          await localStorage.getBool('has_current_location') ?? false;
+      isFirstLaunch.value = savedCityJson == null || !hasCurrentLocation;
+    } catch (e) {
+      debugPrint('${AppExceptions().firstLaunch}: $e');
+      isFirstLaunch.value = true;
+    }
+  }
+
   Future<void> _setupFirstLaunch() async {
     final currentCity = currentLocationCity.value;
 
     if (currentCity != null) {
       selectedCity.value = currentCity;
     } else {
-      final nukualofa = allCities.firstWhere(
-        (city) => city.city.toLowerCase() == 'nukualofa',
+      final tegucigalpa = allCities.firstWhere(
+        (city) => city.cityAscii.toLowerCase() == 'tegucigalpa',
         orElse: () => allCities.first,
       );
-      selectedCity.value = nukualofa;
+      selectedCity.value = tegucigalpa;
     }
-
     await cityStorageService.saveSelectedCity(selectedCity.value);
     await localStorage.setBool('has_current_location', currentCity != null);
   }
 
-  String get selectedCityName => selectedCity.value?.city ?? 'Loading...';
+  String get selectedCityName => selectedCity.value?.cityAscii ?? 'Loading...';
   bool get isAppReady => isDataLoaded.value;
   CityModel? get currentCity => currentLocationCity.value;
   CityModel? get chosenCity => selectedCity.value;
   bool get isFirstTime => isFirstLaunch.value;
-  Map<String, dynamic> get rawWeatherData =>
-      _rawDataStorage[selectedCityName] ?? {};
+  Map<String, dynamic> get rawWeatherData {
+    final key = LocationUtilsService.fromCityModel(selectedCity.value!);
+    return _rawDataStorage[key] ?? {};
+  }
+
+  void cacheCityData(String key, Map<String, dynamic> data) {
+    _rawDataStorage[key] = data;
+  }
+
+  void _updateRawForecastDataForCurrentCity() {
+    final key = LocationUtilsService.fromCityModel(selectedCity.value!);
+    if (_rawDataStorage.containsKey(key)) {
+      rawForecastData.value = Map<String, dynamic>.from(_rawDataStorage[key]!);
+    }
+  }
 }

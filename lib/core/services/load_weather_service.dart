@@ -6,11 +6,11 @@ import 'condition_service.dart';
 
 class LoadWeatherService {
   final GetWeatherAndForecast getCurrentWeather;
-  final ConditionService conditionController;
+  final ConditionService conditionService;
 
   LoadWeatherService({
     required this.getCurrentWeather,
-    required this.conditionController,
+    required this.conditionService,
   });
 
   Future<void> loadWeatherForAllCities(
@@ -26,10 +26,10 @@ class LoadWeatherService {
           lon: city.longitude,
         );
         if (selectedCityName != null && city.cityAscii == selectedCityName) {
-          conditionController.updateWeatherData([weather], 0, city.cityAscii);
-          conditionController.updateWeeklyForecast(forecast);
+          conditionService.updateWeatherData([weather], 0, city.cityAscii);
+          conditionService.updateWeeklyForecast(forecast);
         }
-        conditionController.allCitiesWeather[city.cityAscii] = weather;
+        conditionService.allCitiesWeather[city.cityAscii] = weather;
       }
       if (currentLocationCity != null) {
         final isCurrentLocationInCities = cities.any(
@@ -42,20 +42,20 @@ class LoadWeatherService {
           );
           if (selectedCityName != null &&
               currentLocationCity.cityAscii == selectedCityName) {
-            conditionController.updateWeatherData(
+            conditionService.updateWeatherData(
               [weather],
               0,
               currentLocationCity.cityAscii,
             );
-            conditionController.updateWeeklyForecast(forecast);
+            conditionService.updateWeeklyForecast(forecast);
           }
-          conditionController.allCitiesWeather[currentLocationCity.cityAscii] =
+          conditionService.allCitiesWeather[currentLocationCity.cityAscii] =
               weather;
         }
       }
     } catch (e) {
       debugPrint('${AppExceptions().failToLoadWeather}: $e');
-      conditionController.allCitiesWeather.clear();
+      conditionService.allCitiesWeather.clear();
     }
   }
 }

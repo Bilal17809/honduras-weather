@@ -9,16 +9,19 @@ import '/core/services/services.dart';
 import '/core/theme/theme.dart';
 import '/core/constants/constant.dart';
 
-class TopSection extends StatelessWidget {
-  const TopSection({super.key});
+class HomeHeader extends StatelessWidget {
+  const HomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
-    final weatherModel =
-        Get.find<ConditionService>().currentLocationWeather.value;
+
     return Obx(() {
-      final currentCity = homeController.currentLocationCity;
+      final selectedCity = homeController.selectedCity.value;
+      final weather = selectedCity != null
+          ? homeController.conditionService.allCitiesWeather[selectedCity
+                .cityAscii]
+          : null;
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,8 +30,9 @@ class TopSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                currentCity != null
-                    ? '${currentCity.city}\n${weatherModel?.region ?? 'N/a'}'
+                maxLines: 3,
+                selectedCity != null
+                    ? '${selectedCity.city}\n${weather?.region ?? 'N/a'}'
                     : 'Error Fetching City',
 
                 style: headlineSmallStyle(context),
@@ -42,10 +46,10 @@ class TopSection extends StatelessWidget {
             ],
           ),
           GestureDetector(
-            onTap: () => currentCity != null
+            onTap: () => selectedCity != null
                 ? MapService.openMaps(
-                    currentCity.latitude,
-                    currentCity.longitude,
+                    selectedCity.latitude,
+                    selectedCity.longitude,
                   )
                 : SimpleToast.showCustomToast(
                     context: context,

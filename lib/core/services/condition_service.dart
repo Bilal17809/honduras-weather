@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import '../../data/models/forecast_model.dart';
-import '../../data/models/weather_model.dart';
-import '../../presentation/home/controller/home_controller.dart';
 import '/core/platform_channels/android_widget_channel.dart';
+import '/data/models/weather_model.dart';
+import '/data/models/forecast_model.dart';
+import '/presentation/home/controller/home_controller.dart';
 import 'date_time_service.dart';
 
 class ConditionService extends GetxController {
@@ -46,9 +46,9 @@ class ConditionService extends GetxController {
         'chanceOfRain': f.chanceOfRain,
       };
     }).toList();
-    if (mainCityWeather.value != null && mainCityName.value.isNotEmpty) {
-      WidgetUpdateManager.updateWeatherWidget();
-    }
+    // if (mainCityWeather.value != null && mainCityName.value.isNotEmpty) {
+    //   WidgetUpdateManager.updateWeatherWidget();
+    // }
   }
 
   String _formatTemp(num? temp) => temp != null ? '${temp.round()}' : '--';
@@ -71,7 +71,6 @@ class ConditionService extends GetxController {
 
   String get minTemp => _getTodayForecastValue('minTemp');
   String get maxTemp => _getTodayForecastValue('temp');
-  String get condition => mainCityWeather.value?.condition ?? 'N/a';
   String get chanceOfRain => '${mainCityWeather.value?.chanceOfRain ?? '--'}%';
   String get humidity => '${mainCityWeather.value?.humidity ?? '--'}%';
   String get windSpeed =>

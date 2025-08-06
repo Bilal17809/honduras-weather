@@ -4,7 +4,24 @@ import '/core/constants/constant.dart';
 import '/core/theme/theme.dart';
 
 class CurrentWeatherCard extends StatelessWidget {
-  const CurrentWeatherCard({super.key});
+  final String weatherIconPath;
+  final String condition;
+  final int temperature;
+  final int feelsLike;
+  final String precipitation;
+  final String humidity;
+  final String windSpeed;
+
+  const CurrentWeatherCard({
+    super.key,
+    required this.weatherIconPath,
+    required this.condition,
+    required this.temperature,
+    required this.feelsLike,
+    required this.precipitation,
+    required this.humidity,
+    required this.windSpeed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +37,23 @@ class CurrentWeatherCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
-                children: [
-                  SizedBox(
-                    height: primaryIcon(context),
-                    child: Image.asset('images/weather_icon.png'),
-                  ),
-                  Text(
-                    'Thunderstorm',
-                    style: bodyLargeStyle(
-                      context,
-                    ).copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: kElementInnerGap),
-                ],
+              Flexible(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: primaryIcon(context),
+                      child: Image.asset(weatherIconPath),
+                    ),
+                    Text(
+                      maxLines: 2,
+                      condition,
+                      style: bodyLargeStyle(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: kElementInnerGap),
+                  ],
+                ),
               ),
               Flexible(
                 child: Column(
@@ -41,9 +61,15 @@ class CurrentWeatherCard extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: primaryIcon(context),
-                      child: Text('27°', style: headlineLargeStyle(context)),
+                      child: Text(
+                        '$temperature°',
+                        style: headlineLargeStyle(context),
+                      ),
                     ),
-                    Text('Feels like 32°', style: bodyLargeStyle(context)),
+                    Text(
+                      'Feels like $feelsLike°',
+                      style: bodyLargeStyle(context),
+                    ),
                     const SizedBox(height: kElementInnerGap),
                   ],
                 ),
@@ -59,20 +85,20 @@ class CurrentWeatherCard extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 WeatherStat(
                   iconPath: 'images/precip.png',
-                  value: '30%',
+                  value: precipitation,
                   label: 'Precipitation',
                 ),
                 WeatherStat(
                   iconPath: 'images/humidity.png',
-                  value: '20%',
+                  value: humidity,
                   label: 'Humidity',
                 ),
                 WeatherStat(
                   iconPath: 'images/wind.png',
-                  value: '12km/h',
+                  value: windSpeed,
                   label: 'Wind',
                 ),
               ],

@@ -24,7 +24,6 @@ class DependencyInjection {
       () => GetWeatherAndForecast(Get.find<WeatherRepo>()),
       fenix: true,
     );
-    Get.lazyPut<ConditionService>(() => ConditionService(), fenix: true);
     Get.putAsync<WeatherCodesLoader>(() async {
       final loader = WeatherCodesLoader();
       await loader.loadWeatherCodes();
@@ -46,7 +45,7 @@ class DependencyInjection {
     Get.lazyPut<LoadWeatherService>(
       () => LoadWeatherService(
         getCurrentWeather: Get.find(),
-        conditionController: Get.find(),
+        conditionService: Get.find(),
       ),
     );
 
@@ -61,11 +60,15 @@ class DependencyInjection {
         loadWeatherService: Get.find(),
       ),
     );
-    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
-    Get.lazyPut<CitiesController>(() => CitiesController(), fenix: true);
+    Get.lazyPut<ConditionService>(() => ConditionService());
+    Get.lazyPut<HomeController>(
+      () => HomeController(Get.find<GetWeatherAndForecast>()),
+      fenix: true,
+    );
     Get.lazyPut<DailyForecastController>(
       () => DailyForecastController(),
       fenix: true,
     );
+    Get.lazyPut<CitiesController>(() => CitiesController(), fenix: true);
   }
 }
