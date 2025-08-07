@@ -33,7 +33,7 @@ class SplashController extends GetxController with ConnectivityMixin {
   final currentLocationCity = Rx<CityModel?>(null);
   final selectedCity = Rx<CityModel?>(null);
   final isFirstLaunch = true.obs;
-  final RxMap<String, dynamic> _rawDataStorage =
+  final RxMap<String, Map<String, dynamic>> _rawDataStorage =
       <String, Map<String, dynamic>>{}.obs;
   final rawForecastData = <String, dynamic>{}.obs;
   var showButton = false.obs;
@@ -68,7 +68,7 @@ class SplashController extends GetxController with ConnectivityMixin {
         );
         await cityStorageService.saveSelectedCity(selectedCity.value);
       }
-      await loadWeatherService.loadWeatherForAllCities(
+      await loadWeatherService.loadWeatherService(
         allCities,
         selectedCity: selectedCity.value,
         currentLocationCity: currentLocationCity.value,

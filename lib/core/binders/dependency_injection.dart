@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
-import 'package:honduras_weather/presentation/cities/controller/cities_controller.dart';
+import '/ad_manager/ad_manager.dart';
+import '/core/animation/controller/bg_animation_controller.dart';
+import '/presentation/cities/controller/cities_controller.dart';
 import '../config/client.dart';
 import '../local_storage/local_storage.dart';
 import '/domain/use_cases/use_case.dart';
@@ -60,7 +62,12 @@ class DependencyInjection {
         loadWeatherService: Get.find(),
       ),
     );
-    Get.lazyPut<ConditionService>(() => ConditionService());
+    Get.lazyPut<ConditionService>(() => ConditionService(), fenix: true);
+    Get.lazyPut<AutoScrollService>(() => AutoScrollService(), fenix: true);
+    Get.lazyPut<BgAnimationController>(
+      () => BgAnimationController(),
+      fenix: true,
+    );
     Get.lazyPut<HomeController>(
       () => HomeController(Get.find<GetWeatherAndForecast>()),
       fenix: true,
@@ -70,5 +77,12 @@ class DependencyInjection {
       fenix: true,
     );
     Get.lazyPut<CitiesController>(() => CitiesController(), fenix: true);
+
+    /// Ads
+    Get.lazyPut<BannerAdManager>(() => BannerAdManager(), fenix: true);
+    Get.lazyPut<InterstitialAdManager>(
+      () => InterstitialAdManager(),
+      fenix: true,
+    );
   }
 }

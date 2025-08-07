@@ -7,11 +7,17 @@ import '/core/theme/theme.dart';
 import 'shimmers.dart';
 
 class HourlyForecastList extends StatelessWidget {
-  const HourlyForecastList({super.key});
+  final ScrollController? customScrollController;
+
+  const HourlyForecastList({super.key, this.customScrollController});
+
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
     final splashController = Get.find<SplashController>();
+    final scrollController =
+        customScrollController ?? homeController.scrollController;
+
     return Obx(() {
       final forecastDays =
           splashController.rawForecastData['forecast']?['forecastday'];
@@ -19,6 +25,7 @@ class HourlyForecastList extends StatelessWidget {
       final hourlyList = todayData?['hour'] as List? ?? [];
       final now = DateTime.now();
       final isLoading = forecastDays == null || homeController.isLoading.value;
+
       if (isLoading) {
         const shimmerItemCount = 24;
         return SizedBox(
@@ -34,10 +41,11 @@ class HourlyForecastList extends StatelessWidget {
           ),
         );
       }
+
       return SizedBox(
         height: mobileHeight(context) * 0.14,
         child: ListView.builder(
-          controller: homeController.scrollController,
+          controller: scrollController,
           scrollDirection: Axis.horizontal,
           itemCount: hourlyList.length,
           itemBuilder: (context, index) {
@@ -45,6 +53,7 @@ class HourlyForecastList extends StatelessWidget {
             final hourTime = DateTime.parse(hourData['time']);
             final hourLabel = TimeOfDay.fromDateTime(hourTime).format(context);
             final isCurrentHour = hourTime.hour == now.hour;
+
             return _HourlyForecast(
               day: hourLabel,
               isSelected: isCurrentHour,
@@ -129,7 +138,6 @@ class _HourlyForecast extends StatelessWidget {
                   color: isSelected ? null : secondaryText(context),
                   fontWeight: FontWeight.bold,
                 ),
-
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),

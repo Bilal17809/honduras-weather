@@ -30,7 +30,12 @@ class ForecastRow extends StatelessWidget {
         children: [
           SizedBox(
             width: mobileWidth(context) * 0.15,
-            child: Text(day, style: bodyMediumStyle(context)),
+            child: Text(
+              day,
+              style: bodyMediumStyle(
+                context,
+              ).copyWith(color: secondaryText(context)),
+            ),
           ),
           iconUrl.isNotEmpty
               ? Image.network(
@@ -48,7 +53,9 @@ class ForecastRow extends StatelessWidget {
           Spacer(),
           Text(
             '$maxTemp°/$minTemp°',
-            style: bodyMediumStyle(context),
+            style: bodyMediumStyle(
+              context,
+            ).copyWith(color: secondaryText(context)),
             textAlign: TextAlign.center,
           ),
           SizedBox(width: mobileWidth(context) * 0.08),
@@ -56,7 +63,9 @@ class ForecastRow extends StatelessWidget {
             flex: 2,
             child: Text(
               condition,
-              style: bodyMediumStyle(context),
+              style: bodyMediumStyle(
+                context,
+              ).copyWith(color: secondaryText(context)),
               textAlign: TextAlign.start,
               maxLines: 2,
               softWrap: true,

@@ -25,7 +25,7 @@ class CityCard extends StatelessWidget {
       final temp = weather?.temperature.round().toString() ?? '--';
       final condition = weather?.condition ?? 'Loading...';
       final airQuality = weather?.airQuality != null
-          ? 'AQI ${weather!.airQuality!.calculatedAqi} - ${weather.airQuality!.category}'
+          ? 'AQI ${weather?.airQuality?.calculatedAqi} - ${weather?.airQuality?.category}'
           : 'Loading...';
       return GestureDetector(
         onTap: () async {

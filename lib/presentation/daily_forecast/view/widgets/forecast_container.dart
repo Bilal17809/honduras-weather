@@ -17,7 +17,7 @@ class ForecastContainer extends StatelessWidget {
         decoration: roundedForecastDecor(context),
         child: SizedBox(
           child: Padding(
-            padding: EdgeInsets.only(top: mobileHeight(context) * 0.1),
+            padding: EdgeInsets.only(top: mobileHeight(context) * 0.05),
             child: SingleChildScrollView(
               child: Column(
                 children: [

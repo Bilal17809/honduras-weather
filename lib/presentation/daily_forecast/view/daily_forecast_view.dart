@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/ad_manager/ad_manager.dart';
+import '/core/animation/view/animated_bg_builder.dart';
 import '/core/theme/theme.dart';
 import '/presentation/cities/view/cities_view.dart';
 import '/core/common_widgets/common_widgets.dart';
@@ -15,6 +17,7 @@ class DailyForecastView extends StatelessWidget {
   final String precipitation;
   final String humidity;
   final String windSpeed;
+  final ScrollController? scrollController;
 
   const DailyForecastView({
     super.key,
@@ -25,68 +28,67 @@ class DailyForecastView extends StatelessWidget {
     required this.precipitation,
     required this.humidity,
     required this.windSpeed,
+    this.scrollController, // Optional scroll controller
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/bg.png'),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          AnimatedBgImageBuilder(),
+          Positioned(
+            top: mobileHeight(context) * 0.5,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: const ForecastContainer(),
           ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: mobileHeight(context) * 0.5,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: const ForecastContainer(),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    TitleBar(
-                      title: 'Next 7 Days',
-                      actions: [
-                        IconActionButton(
-                          onTap: () => Get.to(() => const CitiesView()),
-                          icon: Icons.add,
-                          color: getIconColor(context),
-                          size: secondaryIcon(context),
-                        ),
-                      ],
-                    ),
-                    const HourlyForecastList(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: kBodyHp * 2,
-                        vertical: kElementGap,
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              child: Column(
+                children: [
+                  TitleBar(
+                    title: 'Next 7 Days',
+                    actions: [
+                      IconActionButton(
+                        onTap: () => Get.to(() => const CitiesView()),
+                        icon: Icons.add,
+                        color: getIconColor(context),
+                        size: secondaryIcon(context),
                       ),
-                      child: CurrentWeatherCard(
-                        weatherIconPath: weatherIconPath,
-                        condition: condition,
-                        temperature: temperature,
-                        feelsLike: feelsLike,
-                        precipitation: precipitation,
-                        humidity: humidity,
-                        windSpeed: windSpeed,
-                      ),
+                    ],
+                  ),
+                  HourlyForecastList(customScrollController: scrollController),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: kBodyHp * 2,
+                      vertical: kElementGap,
                     ),
-                  ],
-                ),
+                    child: CurrentWeatherCard(
+                      weatherIconPath: weatherIconPath,
+                      condition: condition,
+                      temperature: temperature,
+                      feelsLike: feelsLike,
+                      precipitation: precipitation,
+                      humidity: humidity,
+                      windSpeed: windSpeed,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+      // bottomNavigationBar: Obx(() {
+      //   return Get.find<InterstitialAdManager>().isShow.value
+      //       ? SizedBox()
+      //       : Get.find<BannerAdManager>().showBannerAd('ad2');
+      // }),
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import '/ad_manager/ad_manager.dart';
+import '/core/animation/view/animated_bg_builder.dart';
 import '/core/global_keys/global_key.dart';
 import '/core/common_widgets/common_widgets.dart';
-import '/presentation/home/controller/home_controller.dart';
-import '/presentation/home/view/widgets/home_body.dart';
+import '../controller/home_controller.dart';
+import 'widgets/home_body.dart';
 import '/core/utils/home_dialog.dart';
 
 class HomeView extends StatelessWidget {
@@ -27,15 +29,21 @@ class HomeView extends StatelessWidget {
         onDrawerChanged: (isOpen) {
           homeController.isDrawerOpen.value = isOpen;
         },
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/bg.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: const SafeArea(child: HomeBody()),
+        body: Stack(
+          children: [
+            AnimatedBgImageBuilder(),
+            const SafeArea(child: HomeBody()),
+          ],
         ),
+        bottomNavigationBar: Obx(() {
+          final interstitial = Get.find<InterstitialAdManager>();
+          final isDrawerOpen = homeController.isDrawerOpen.value;
+          if (!isDrawerOpen && !interstitial.isShow.value) {
+            return Get.find<BannerAdManager>().showBannerAd('ad1');
+          } else {
+            return const SizedBox();
+          }
+        }),
       ),
     );
   }

@@ -13,7 +13,7 @@ class LoadWeatherService {
     required this.conditionService,
   });
 
-  Future<void> loadWeatherForAllCities(
+  Future<void> loadWeatherService(
     List<CityModel> cities, {
     CityModel? selectedCity,
     CityModel? currentLocationCity,

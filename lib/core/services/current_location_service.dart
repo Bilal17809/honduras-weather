@@ -15,7 +15,7 @@ class CurrentLocationService {
 
   Future<CityModel?> getCurrentLocationCity(List<CityModel> allCities) async {
     try {
-      final city = await getCurrentWeather.getCity();
+      final (city, region) = await getCurrentWeather.getCity();
       final latStr = await localStorage.getString('latitude');
       final lonStr = await localStorage.getString('longitude');
 
@@ -27,6 +27,7 @@ class CurrentLocationService {
         orElse: () => CityModel(
           city: city,
           cityAscii: city,
+          region: region,
           latitude: lat ?? 0.0,
           longitude: lon ?? 0.0,
         ),

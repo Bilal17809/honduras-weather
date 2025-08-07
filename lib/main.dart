@@ -4,10 +4,14 @@ import 'package:get/get.dart';
 import 'package:honduras_weather/presentation/splash/view/splash_view.dart';
 import '/core/binders/dependency_injection.dart';
 import '/core/local_storage/local_storage.dart';
+import 'ad_manager/app_open_ads.dart';
+import 'core/services/aqi_service.dart';
 import 'core/theme/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AqiService.initialize();
+  Get.put(AppOpenAdManager());
   DependencyInjection.init();
   final storage = LocalStorage();
   final isDark = await storage.getBool('isDarkMode');

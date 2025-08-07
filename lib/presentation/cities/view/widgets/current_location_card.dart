@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toastification/toastification.dart';
 import '/core/common_widgets/common_widgets.dart';
-import '/core/services/condition_service.dart';
 import '/core/theme/theme.dart';
 import '/core/common/app_exceptions.dart';
 import '/core/constants/constant.dart';
@@ -16,8 +15,6 @@ class CurrentLocationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find();
-    final weatherModel =
-        Get.find<ConditionService>().currentLocationWeather.value;
 
     return Obx(() {
       final currentCity = homeController.currentLocationCity;
@@ -44,7 +41,6 @@ class CurrentLocationCard extends StatelessWidget {
           }
         },
         child: Container(
-          margin: const EdgeInsets.only(bottom: kBodyHp * 1.5),
           decoration: roundedDecor(context).copyWith(
             gradient: isDarkMode(context)
                 ? kContainerGradient(context)
@@ -92,7 +88,10 @@ class CurrentLocationCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 currentCity != null
-                                    ? '${currentCity.city}/${weatherModel?.region ?? ''}'
+                                    ? currentCity.region != null &&
+                                              currentCity.region!.isNotEmpty
+                                          ? '${currentCity.city}, ${currentCity.region}'
+                                          : currentCity.city
                                     : 'Error Fetching City',
                                 style: bodyLargeStyle(context).copyWith(
                                   color: kWhite.withValues(alpha: 0.8),

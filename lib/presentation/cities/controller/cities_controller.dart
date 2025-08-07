@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/ad_manager/ad_manager.dart';
 import '/core/mixins/connectivity_mixin.dart';
 import '/core/services/services.dart';
 import '/data/models/city_model.dart';
@@ -11,13 +12,14 @@ class CitiesController extends GetxController with ConnectivityMixin {
   var hasSearchError = false.obs;
   var searchErrorMessage = ''.obs;
   var isSearching = false.obs;
-
   var filteredCities = <CityModel>[].obs;
   final TextEditingController searchController = TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
+    // Get.find<InterstitialAdManager>().checkAndDisplayAd();
+    // Get.find<BannerAdManager>().loadBannerAd('ad3');
     _syncSplash();
   }
 
@@ -34,6 +36,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
   void searchCities(String query) {
     if (query.isEmpty) {
       filteredCities.value = splashController.allCities;
+
       hasSearchError.value = false;
       return;
     }
@@ -55,6 +58,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
         filteredCities.value = results;
         hasSearchError.value = false;
       }
+      filteredCities.assignAll(results);
     } catch (e) {
       hasSearchError.value = true;
       searchErrorMessage.value = 'Search failed. Please try again.';

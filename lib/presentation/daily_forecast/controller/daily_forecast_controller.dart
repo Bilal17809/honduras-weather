@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/ad_manager/ad_manager.dart';
 import '/core/mixins/connectivity_mixin.dart';
 import '/core/services/services.dart';
 import '/presentation/home/controller/home_controller.dart';
@@ -7,6 +9,9 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
   var forecastData = <Map<String, dynamic>>[].obs;
   final homeController = Get.find<HomeController>();
   final conditionService = Get.find<ConditionService>();
+  final autoScrollService = Get.find<AutoScrollService>();
+  final scrollController = ScrollController();
+  final isWeatherDataLoaded = false.obs;
   var selectedDayIndex = 0.obs;
   var selectedCityName = ''.obs;
 
@@ -16,7 +21,21 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
     initWithConnectivityCheck(
       context: Get.context!,
       onConnected: () async {
+        // Get.find<InterstitialAdManager>().checkAndDisplayAd();
+        // Get.find<BannerAdManager>().loadBannerAd('ad2');
         loadForecastData();
+        isWeatherDataLoaded.value = true;
+        autoScrollService.setupAutoScroll(
+          isWeatherDataLoaded: isWeatherDataLoaded,
+          scrollController: scrollController,
+        );
+        ever(homeController.selectedCity, (_) {
+          loadForecastData();
+          autoScrollService.setupAutoScroll(
+            isWeatherDataLoaded: true.obs,
+            scrollController: scrollController,
+          );
+        });
       },
     );
   }
