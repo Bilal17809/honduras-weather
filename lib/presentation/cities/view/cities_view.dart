@@ -6,7 +6,11 @@ import 'widgets/current_location_card.dart';
 import '/core/common_widgets/common_widgets.dart';
 import '/core/constants/constant.dart';
 import '../controller/cities_controller.dart';
-
+/*
+if padding fromLTRB than use static number/
+themes check? create getter function in extension
+just use here.
+*/
 class CitiesView extends StatelessWidget {
   const CitiesView({super.key});
 

@@ -9,9 +9,9 @@ import 'core/theme/theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DependencyInjection.init();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   final storage = LocalStorage();
   final isDark = await storage.getBool('isDarkMode');
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     HondurasWeather(
       themeMode: isDark == true

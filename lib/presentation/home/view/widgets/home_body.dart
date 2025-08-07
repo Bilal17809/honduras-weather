@@ -10,7 +10,9 @@ import '/core/theme/theme.dart';
 import '/core/common_widgets/common_widgets.dart';
 import '/presentation/cities/view/cities_view.dart';
 import 'home_header.dart';
-
+/*
+hierarchy issue make a private stateless class
+*/
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
