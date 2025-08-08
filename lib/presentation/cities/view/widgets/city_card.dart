@@ -48,7 +48,7 @@ class CityCard extends StatelessWidget {
                 ? secondaryColorLight.withValues(alpha: 0.35)
                 : null,
             border: isCurrentlySelectedCity
-                ? Border.all(color: getSecondaryColor(context), width: 2)
+                ? Border.all(color: getPrimaryColor(context), width: 2)
                 : null,
           ),
           padding: const EdgeInsets.all(kBodyHp),

@@ -40,13 +40,13 @@ class CitiesView extends StatelessWidget {
             ),
           ],
         ),
-        // bottomNavigationBar: Obx(() {
-        //   final interstitialManager = Get.find<InterstitialAdManager>();
-        //   final bannerAdManager = Get.find<BannerAdManager>();
-        //   return interstitialManager.isShow.value
-        //       ? const SizedBox()
-        //       : bannerAdManager.showBannerAd('ad3');
-        // }),
+        bottomNavigationBar: Obx(() {
+          final interstitialManager = Get.find<InterstitialAdManager>();
+          final bannerAdManager = Get.find<BannerAdManager>();
+          return interstitialManager.isShow.value
+              ? const SizedBox()
+              : bannerAdManager.showBannerAd('ad1');
+        }),
       ),
     );
   }
@@ -64,18 +64,21 @@ class _CitiesGrid extends StatelessWidget {
         if (cities.isEmpty) {
           return const Center(child: CircularProgressIndicator());
         }
-        return GridView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: kBodyHp),
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: mobileWidth(context) / 2,
-            mainAxisSpacing: kElementGap,
-            crossAxisSpacing: kElementGap,
+        return Padding(
+          padding: const EdgeInsets.only(bottom: kElementInnerGap),
+          child: GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: kBodyHp),
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: mobileWidth(context) / 2,
+              mainAxisSpacing: kElementGap,
+              crossAxisSpacing: kElementGap,
+            ),
+            itemCount: cities.length,
+            itemBuilder: (BuildContext context, index) {
+              final city = cities[index];
+              return CityCard(controller: controller, city: city);
+            },
           ),
-          itemCount: cities.length,
-          itemBuilder: (BuildContext context, index) {
-            final city = cities[index];
-            return CityCard(controller: controller, city: city);
-          },
         );
       }),
     );

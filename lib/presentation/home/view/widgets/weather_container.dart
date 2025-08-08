@@ -55,11 +55,14 @@ class WeatherContainer extends StatelessWidget {
           ),
           Flexible(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: primaryIcon(context),
-                  child: Text('$temp°', style: headlineLargeStyle(context)),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text('$temp°', style: headlineLargeStyle(context)),
+                  ),
                 ),
                 Text(
                   'Feels like ${weather!.feelsLike.round()}°',

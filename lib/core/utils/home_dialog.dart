@@ -14,6 +14,7 @@ class HomeDialogs {
       onTapCancel: () => Navigator.pop(context, false),
       panaraDialogType: PanaraDialogType.custom,
       color: getSecondaryColor(context),
+      textColor: kWhite,
       barrierDismissible: false,
     );
   }

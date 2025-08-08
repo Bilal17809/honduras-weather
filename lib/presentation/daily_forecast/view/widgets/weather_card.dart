@@ -40,9 +40,11 @@ class CurrentWeatherCard extends StatelessWidget {
               Flexible(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: primaryIcon(context),
-                      child: Image.asset(weatherIconPath),
+                    FittedBox(
+                      child: SizedBox(
+                        height: primaryIcon(context),
+                        child: Image.asset(weatherIconPath),
+                      ),
                     ),
                     Text(
                       maxLines: 2,
@@ -57,13 +59,16 @@ class CurrentWeatherCard extends StatelessWidget {
               ),
               Flexible(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       height: primaryIcon(context),
-                      child: Text(
-                        '$temperature°',
-                        style: headlineLargeStyle(context),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          '$temperature°',
+                          style: headlineLargeStyle(context),
+                        ),
                       ),
                     ),
                     Text(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// ========== Padding ==========
 const double kBodyHp = 16.0;
 const double kElementGap = 12.0;
-const double kElementInnerGap = 8.0;
+const double kElementInnerGap = 6.0;
 const double kElementWidthGap = 10.0;
 
 /// ========== Border ==========

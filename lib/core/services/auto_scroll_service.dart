@@ -25,7 +25,7 @@ class AutoScrollService {
       timer.cancel();
 
       final context = scrollController.position.context.storageContext;
-      final double itemWidth = mobileWidth(context) * 0.22;
+      final double itemWidth = mobileWidth(context) * 0.19;
       final int currentHour = DateTime.now().hour;
       final double targetScrollOffset = currentHour * itemWidth;
 

@@ -26,9 +26,9 @@ class ConditionService extends GetxController {
     if (currentCity != null && currentCity.city == cityName) {
       currentLocationWeather.value = newWeather;
     }
-    // if (mainCityWeather.value != null) {
-    //   WidgetUpdateManager.updateWeatherWidget();
-    // }
+    if (mainCityWeather.value != null) {
+      WidgetUpdateManager.updateWeatherWidget();
+    }
   }
 
   void updateWeeklyForecast(List<ForecastModel> forecastList) {
@@ -46,9 +46,9 @@ class ConditionService extends GetxController {
         'chanceOfRain': f.chanceOfRain,
       };
     }).toList();
-    // if (mainCityWeather.value != null && mainCityName.value.isNotEmpty) {
-    //   WidgetUpdateManager.updateWeatherWidget();
-    // }
+    if (mainCityWeather.value != null && mainCityName.value.isNotEmpty) {
+      WidgetUpdateManager.updateWeatherWidget();
+    }
   }
 
   String _formatTemp(num? temp) => temp != null ? '${temp.round()}' : '--';

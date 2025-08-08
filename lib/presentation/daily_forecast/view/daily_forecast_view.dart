@@ -28,11 +28,14 @@ class DailyForecastView extends StatelessWidget {
     required this.precipitation,
     required this.humidity,
     required this.windSpeed,
-    this.scrollController, // Optional scroll controller
+    this.scrollController,
   });
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<InterstitialAdManager>().checkAndDisplayAd();
+    });
     return Scaffold(
       body: Stack(
         children: [
@@ -55,7 +58,10 @@ class DailyForecastView extends StatelessWidget {
                     title: 'Next 7 Days',
                     actions: [
                       IconActionButton(
-                        onTap: () => Get.to(() => const CitiesView()),
+                        onTap: () => Get.to(
+                          () => const CitiesView(),
+                          transition: Transition.fade,
+                        ),
                         icon: Icons.add,
                         color: getIconColor(context),
                         size: secondaryIcon(context),
@@ -84,11 +90,6 @@ class DailyForecastView extends StatelessWidget {
           ),
         ],
       ),
-      // bottomNavigationBar: Obx(() {
-      //   return Get.find<InterstitialAdManager>().isShow.value
-      //       ? SizedBox()
-      //       : Get.find<BannerAdManager>().showBannerAd('ad2');
-      // }),
     );
   }
 }

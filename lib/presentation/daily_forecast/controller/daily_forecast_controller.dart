@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/ad_manager/ad_manager.dart';
 import '/core/mixins/connectivity_mixin.dart';
 import '/core/services/services.dart';
 import '/presentation/home/controller/home_controller.dart';
@@ -21,8 +20,6 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
     initWithConnectivityCheck(
       context: Get.context!,
       onConnected: () async {
-        // Get.find<InterstitialAdManager>().checkAndDisplayAd();
-        // Get.find<BannerAdManager>().loadBannerAd('ad2');
         loadForecastData();
         isWeatherDataLoaded.value = true;
         autoScrollService.setupAutoScroll(

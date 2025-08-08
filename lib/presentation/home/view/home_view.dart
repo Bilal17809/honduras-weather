@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '/ad_manager/ad_manager.dart';
 import '/core/animation/view/animated_bg_builder.dart';
 import '/core/global_keys/global_key.dart';
 import '/core/common_widgets/common_widgets.dart';
@@ -15,7 +14,6 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, value) async {
@@ -35,15 +33,6 @@ class HomeView extends StatelessWidget {
             const SafeArea(child: HomeBody()),
           ],
         ),
-        bottomNavigationBar: Obx(() {
-          final interstitial = Get.find<InterstitialAdManager>();
-          final isDrawerOpen = homeController.isDrawerOpen.value;
-          if (!isDrawerOpen && !interstitial.isShow.value) {
-            return Get.find<BannerAdManager>().showBannerAd('ad1');
-          } else {
-            return const SizedBox();
-          }
-        }),
       ),
     );
   }

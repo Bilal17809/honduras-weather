@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import '/ad_manager/ad_manager.dart';
 import '/core/mixins/connectivity_mixin.dart';
 import '/core/services/services.dart';
+import '/core/platform_channels/android_widget_channel.dart';
 import '/data/models/city_model.dart';
 import '/presentation/splash/controller/splash_controller.dart';
 
 class CitiesController extends GetxController with ConnectivityMixin {
   final splashController = Get.find<SplashController>();
   final conditionService = Get.find<ConditionService>();
+
   var hasSearchError = false.obs;
   var searchErrorMessage = ''.obs;
   var isSearching = false.obs;
@@ -16,10 +18,10 @@ class CitiesController extends GetxController with ConnectivityMixin {
   final TextEditingController searchController = TextEditingController();
 
   @override
-  void onInit() {
-    super.onInit();
-    // Get.find<InterstitialAdManager>().checkAndDisplayAd();
-    // Get.find<BannerAdManager>().loadBannerAd('ad3');
+  void onReady() {
+    super.onReady();
+    Get.find<InterstitialAdManager>().checkAndDisplayAd();
+    Get.find<BannerAdManager>().loadBannerAd('ad1');
     _syncSplash();
   }
 
@@ -36,12 +38,13 @@ class CitiesController extends GetxController with ConnectivityMixin {
   void searchCities(String query) {
     if (query.isEmpty) {
       filteredCities.value = splashController.allCities;
-
       hasSearchError.value = false;
       return;
     }
+
     isSearching.value = true;
     hasSearchError.value = false;
+
     try {
       final results = splashController.allCities
           .where(
@@ -50,6 +53,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
                 city.cityAscii.toLowerCase().contains(query.toLowerCase()),
           )
           .toList();
+
       if (results.isEmpty) {
         hasSearchError.value = true;
         searchErrorMessage.value = 'No cities found matching "$query"';
@@ -58,6 +62,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
         filteredCities.value = results;
         hasSearchError.value = false;
       }
+
       filteredCities.assignAll(results);
     } catch (e) {
       hasSearchError.value = true;
@@ -74,6 +79,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
       onConnected: () async {
         splashController.selectedCity.value = city;
         await splashController.cityStorageService.saveSelectedCity(city);
+        WidgetUpdateManager.updateWeatherWidget();
       },
     );
   }

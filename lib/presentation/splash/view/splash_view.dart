@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:honduras_weather/presentation/splash/controller/splash_controller.dart';
+import '/ad_manager/ad_manager.dart';
+import '/presentation/splash/controller/splash_controller.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '/presentation/home/view/home_view.dart';
 import '/core/theme/theme.dart';
@@ -13,6 +14,7 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SplashController>();
+    final ad = Get.find<InterstitialAdManager>();
     return Obx(
       () => Scaffold(
         body: Center(
@@ -35,7 +37,12 @@ class SplashView extends StatelessWidget {
                           shadowColor: kDarkOrange,
                           textColor: kBlack,
                           onPressed: () async {
-                            Get.to(() => HomeView());
+                            if (!ad.isShow.value) {
+                              ad.showAd();
+                              Get.off(() => HomeView());
+                            } else {
+                              Get.off(() => HomeView());
+                            }
                           },
                           text: "Let's Go",
                         ),

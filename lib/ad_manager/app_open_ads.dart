@@ -10,9 +10,7 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
   AppOpenAd? _currentAd;
   bool _canDisplayAd = false;
   bool _resumeEligible = false;
-
-  // bool _interstitialAdDismissed = false;
-  // bool _isSplashInterstitialShown = false;
+  bool _interstitialAdDismissed = false;
 
   @override
   void onInit() {
@@ -34,10 +32,11 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
       _resumeEligible = true;
     } else if (state == AppLifecycleState.resumed) {
       Future.delayed(const Duration(milliseconds: 80), () {
-        if (_resumeEligible) {
+        if (_resumeEligible && _interstitialAdDismissed) {
           _displayAdIfAvailable();
         }
         _resumeEligible = false;
+        _interstitialAdDismissed = false;
       });
     }
   }
@@ -99,6 +98,10 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
     );
   }
 
+  void setInterstitialAdDismissed() {
+    _interstitialAdDismissed = true;
+  }
+
   String _getAdUnitId() {
     if (Platform.isAndroid) {
       return 'ca-app-pub-3940256099942544/9257395921';
@@ -108,12 +111,4 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
       throw UnsupportedError('Platform not supported');
     }
   }
-
-  // void setInterstitialAdDismissed() {
-  //   _interstitialAdDismissed = true;
-  // }
-  //
-  // void setSplashInterstitialFlag(bool shown) {
-  //   _isSplashInterstitialShown = shown;
-  // }
 }

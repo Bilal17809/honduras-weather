@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:honduras_weather/ad_manager/ad_manager.dart';
 import '/core/services/services.dart';
 
 class InterstitialAdManager extends GetxController {
@@ -79,6 +80,7 @@ class InterstitialAdManager extends GetxController {
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
         debugPrint("Interstitial failed: $error");
+        Get.find<AppOpenAdManager>().setInterstitialAdDismissed();
         ad.dispose();
         isShow.value = false;
         _resetAfterAd();
@@ -102,6 +104,10 @@ class InterstitialAdManager extends GetxController {
         visitCounter = 0;
       }
     }
+  }
+
+  void showAd() {
+    _showAd();
   }
 
   void _resetAfterAd() {

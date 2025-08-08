@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:honduras_weather/ad_manager/ad_manager.dart';
 import 'package:honduras_weather/data/models/weather_model.dart';
 import 'package:honduras_weather/presentation/daily_forecast/view/daily_forecast_view.dart';
 import 'package:honduras_weather/presentation/home/controller/home_controller.dart';
-import '../../../daily_forecast/controller/daily_forecast_controller.dart';
+import '/core/platform_channels/android_widget_channel.dart';
+import '/presentation/daily_forecast/controller/daily_forecast_controller.dart';
 import '/core/services/services.dart';
 import '/core/utils/weather_utils.dart';
 import '/core/constants/constant.dart';
@@ -53,16 +55,36 @@ class HomeBody extends StatelessWidget {
               children: [
                 const HomeHeader(),
                 const SizedBox(height: kElementGap),
-                WeatherContainer(weather: weather, temp: temp),
-                const SizedBox(height: kElementGap),
+                GestureDetector(
+                  onLongPress: () async {
+                    final isActive =
+                        await WidgetUpdaterService.isWidgetActive();
+                    if (!isActive) {
+                      await WidgetUpdaterService.requestPinWidget();
+                    } else {
+                      WidgetUpdateManager.updateWeatherWidget();
+                    }
+                  },
+                  child: WeatherContainer(weather: weather, temp: temp),
+                ),
+                const SizedBox(height: kElementInnerGap),
                 _WeatherRow(conditionService, weather),
-                const SizedBox(height: kElementGap),
+                const SizedBox(height: kElementInnerGap),
+                if (!homeController.isDrawerOpen.value) ...[
+                  Obx(() {
+                    final nativeAdManager = Get.find<NativeAdManager>();
+                    return nativeAdManager.isAdLoaded.value
+                        ? nativeAdManager.showNativeAd()
+                        : const NativeAdShimmer();
+                  }),
+                  const SizedBox(height: kElementInnerGap),
+                ],
                 _TodayRow(weather: weather, conditionService: conditionService),
               ],
             ),
           ),
-          const SizedBox(height: kElementGap),
-          const HourlyForecastList(),
+          const SizedBox(height: kElementInnerGap),
+          Flexible(child: const HourlyForecastList()),
         ],
       );
     });

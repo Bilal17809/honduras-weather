@@ -85,64 +85,67 @@ class _HourlyForecast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: mobileWidth(context) * 0.2,
-      margin: EdgeInsets.only(
-        left: isFirst ? kBodyHp : 0,
-        right: isLast ? kBodyHp : kElementGap,
-      ),
-      padding: const EdgeInsets.symmetric(vertical: kBodyHp),
-      decoration: roundedSelectionDecoration(context, isSelected: isSelected),
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                day,
-                style: bodyMediumStyle(context).copyWith(
-                  color: isSelected ? null : secondaryText(context),
-                  fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Container(
+        width: mobileWidth(context) * 0.17,
+        margin: EdgeInsets.only(
+          left: isFirst ? kBodyHp : 0,
+          right: isLast ? kBodyHp : kElementGap,
+        ),
+        padding: const EdgeInsets.symmetric(vertical: kBodyHp),
+        decoration: roundedSelectionDecoration(context, isSelected: isSelected),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  day,
+                  style: bodyMediumStyle(context).copyWith(
+                    color: isSelected ? null : secondaryText(context),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
               ),
-            ),
-            const SizedBox(height: kElementInnerGap),
-            hourData?['condition']?['icon'] != null
-                ? Image.network(
-                    'https:${hourData!['condition']['icon']}',
-                    width: mediumIcon(context),
-                    height: mediumIcon(context),
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) => Icon(
+              const SizedBox(height: kElementInnerGap),
+              hourData?['condition']?['icon'] != null
+                  ? Image.network(
+                      'https:${hourData!['condition']['icon']}',
+                      width: mediumIcon(context),
+                      height: mediumIcon(context),
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.wb_sunny,
+                        size: primaryIcon(context),
+                        color: kWhite,
+                      ),
+                    )
+                  : Icon(
                       Icons.wb_sunny,
-                      size: primaryIcon(context),
+                      size: mediumIcon(context),
                       color: kWhite,
                     ),
-                  )
-                : Icon(
-                    Icons.wb_sunny,
-                    size: mediumIcon(context),
-                    color: kWhite,
+              const SizedBox(height: kElementInnerGap),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  hourData != null ? '${hourData!['temp_c'].round()}°' : '0°',
+                  style: bodyMediumStyle(context).copyWith(
+                    color: isSelected ? null : secondaryText(context),
+                    fontWeight: FontWeight.bold,
                   ),
-            const SizedBox(height: kElementInnerGap),
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                hourData != null ? '${hourData!['temp_c'].round()}°' : '0°',
-                style: bodyMediumStyle(context).copyWith(
-                  color: isSelected ? null : secondaryText(context),
-                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

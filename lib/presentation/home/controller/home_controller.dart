@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/ad_manager/ad_manager.dart';
+import '/core/mixins/connectivity_mixin.dart';
+import '/core/platform_channels/android_widget_channel.dart';
 import '/domain/use_cases/use_case.dart';
 import '/data/models/city_model.dart';
 import '/core/services/services.dart';
 import '/presentation/splash/controller/splash_controller.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with ConnectivityMixin {
   final GetWeatherAndForecast getCurrentWeather;
   final CityStorageService cityStorageService;
   final LoadWeatherService loadWeatherService;
@@ -28,32 +29,41 @@ class HomeController extends GetxController {
   Timer? _autoUpdateTimer;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    Get.find<InterstitialAdManager>().checkAndDisplayAd();
-    Get.find<BannerAdManager>().loadBannerAd('ad1');
+    _safeInit();
+    WidgetUpdaterService.setupMethodChannelHandler();
+    WidgetUpdateManager.startPeriodicUpdate();
+  }
+
+  Future<void> _safeInit() async {
     while (!splashController.isAppReady) {
       await Future.delayed(const Duration(milliseconds: 50));
     }
+
     final allCities = splashController.allCities;
     final fallbackCity = splashController.currentCity;
     final selectedCityFromStorage = await cityStorageService.loadSelectedCity(
       allCities: allCities,
       currentLocationCity: fallbackCity,
     );
+
     selectedCities.value = [selectedCityFromStorage];
     await _initializeSelectedCity(selectedCityFromStorage);
     _startAutoUpdate();
+
     autoScrollService.setupAutoScroll(
       isWeatherDataLoaded: isWeatherDataLoaded,
       scrollController: scrollController,
     );
-    ever(splashController.selectedCity, (CityModel? newCity) async {
+
+    ever<CityModel?>(splashController.selectedCity, (newCity) async {
       if (newCity != null &&
           LocationUtilsService.fromCityModel(selectedCity.value!) !=
               LocationUtilsService.fromCityModel(newCity)) {
         selectedCities.value = [newCity];
         await _initializeSelectedCity(newCity);
+
         autoScrollService.setupAutoScroll(
           isWeatherDataLoaded: isWeatherDataLoaded,
           scrollController: scrollController,
