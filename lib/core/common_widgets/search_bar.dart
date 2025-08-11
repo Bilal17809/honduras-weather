@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/constant.dart';
+import '../constants/constants.dart';
 import '/core/theme/theme.dart';
 import 'input_field.dart';
 

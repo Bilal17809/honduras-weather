@@ -83,17 +83,16 @@ BoxDecoration roundedSelectionDecoration(
   return BoxDecoration(
     color: isDark
         ? (isSelected
-              ? kWhite.withValues(alpha: 0.5)
+              ? kWhite.withValues(alpha: 0.6)
               : kWhite.withValues(alpha: 0.25))
-        : (isSelected
-              ? secondaryColorLight.withValues(alpha: 0.9)
-              : unselectedColor),
-    borderRadius: BorderRadius.circular(35),
+        : (isSelected ? null : unselectedColor),
+    gradient: isDark ? null : (isSelected ? kSelectedGradient(context) : null),
+    borderRadius: BorderRadius.circular(24),
     boxShadow: [
       BoxShadow(
         color: isDark
             ? darkBgColor.withValues(alpha: 0.3)
-            : primaryColorLight.withValues(alpha: 0.3),
+            : selectedDarkColor.withValues(alpha: 0.3),
         blurRadius: 6,
         spreadRadius: 1,
         offset: Offset(0, 2),
@@ -145,7 +144,7 @@ LinearGradient kContainerGradient(BuildContext context) {
     colors: context.isDark
         ? [kWhite.withValues(alpha: 0.4), kWhite.withValues(alpha: 0.2)]
         : [primaryColorLight, secondaryColorLight],
-    stops: [0.05, 0.75],
+    stops: [0, 0.95],
   );
 }
 
@@ -156,6 +155,6 @@ LinearGradient kSelectedGradient(BuildContext context) {
     colors: context.isDark
         ? [kWhite.withValues(alpha: 0.08), kWhite.withValues(alpha: 0.06)]
         : [selectedLightColor, selectedDarkColor],
-    stops: [0.05, 0.5],
+    stops: [0.05, 0.7],
   );
 }

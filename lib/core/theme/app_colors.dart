@@ -22,7 +22,6 @@ const Color kBlue = Color(0xFF277FEC);
 // Text colors
 const Color textBlackColor = Color(0xFF000000);
 const Color textPrimaryColor = Color(0xFF057DCE);
-const Color textSecondaryColor = Color(0xFF05558B);
 const Color textWhiteColor = Color(0xFFFFFFFF);
 const Color textGreyColor = Color(0xff626262);
 

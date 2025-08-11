@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:toastification/toastification.dart';
 import '/core/common_widgets/common_widgets.dart';
 import '/core/theme/theme.dart';
 import '/core/common/app_exceptions.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/presentation/home/controller/home_controller.dart';
 import '../../controller/cities_controller.dart';
 
@@ -68,7 +69,7 @@ class CurrentLocationCard extends StatelessWidget {
                             color: kWhite,
                             size: smallIcon(context),
                           ),
-                          const SizedBox(width: kElementWidthGap),
+                          const Gap(kGap),
                           Expanded(
                             child: Text(
                               'Use Current Location',
@@ -82,7 +83,7 @@ class CurrentLocationCard extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: kElementInnerGap),
+                        padding: const EdgeInsets.only(top: kGap),
                         child: Row(
                           children: [
                             Expanded(

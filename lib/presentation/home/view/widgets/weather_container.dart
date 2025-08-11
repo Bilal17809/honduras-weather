@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '/core/animation/view/animated_weather_icon.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/core/utils/weather_utils.dart';
 import '/core/theme/theme.dart';
 import '/data/models/weather_model.dart';
@@ -22,8 +23,8 @@ class WeatherContainer extends StatelessWidget {
     return Container(
       decoration: roundedDecor(context),
       padding: const EdgeInsets.symmetric(
-        vertical: kElementInnerGap,
-        horizontal: kElementWidthGap,
+        vertical: kGap,
+        horizontal: kElementGap,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,7 +50,7 @@ class WeatherContainer extends StatelessWidget {
                     context,
                   ).copyWith(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: kElementInnerGap),
+                const Gap(kGap),
               ],
             ),
           ),
@@ -68,7 +69,7 @@ class WeatherContainer extends StatelessWidget {
                   'Feels like ${weather!.feelsLike.round()}°',
                   style: bodyLargeStyle(context),
                 ),
-                const SizedBox(height: kElementInnerGap),
+                const Gap(kGap),
               ],
             ),
           ),

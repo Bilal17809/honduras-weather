@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 /// ========== Padding ==========
 const double kBodyHp = 16.0;
 const double kElementGap = 12.0;
-const double kElementInnerGap = 6.0;
-const double kElementWidthGap = 10.0;
+const double kGap = 8.0;
 
 /// ========== Border ==========
-const double kBorderRadius = 8.0;
 const double kCircularBorderRadius = 50.0;
 
 /// ========== Icon Sizes ==========

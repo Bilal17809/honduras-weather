@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:honduras_weather/core/global_keys/global_key.dart';
+import 'package:honduras_weather/presentation/daily_forecast/controller/daily_forecast_controller.dart';
 import '/ad_manager/ad_manager.dart';
 import '/core/animation/view/animated_bg_builder.dart';
 import '/core/theme/theme.dart';
 import '/presentation/cities/view/cities_view.dart';
 import '/core/common_widgets/common_widgets.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import 'widgets/forecast_container.dart';
 import 'widgets/weather_card.dart';
 
@@ -35,6 +37,12 @@ class DailyForecastView extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<InterstitialAdManager>().checkAndDisplayAd();
+      final renderBox =
+          globalKey.currentContext?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        Get.find<DailyForecastController>().currentWeatherCardHeight.value =
+            renderBox.size.height;
+      }
     });
     return Scaffold(
       body: Stack(
@@ -75,6 +83,7 @@ class DailyForecastView extends StatelessWidget {
                       vertical: kElementGap,
                     ),
                     child: CurrentWeatherCard(
+                      key: globalKey,
                       weatherIconPath: weatherIconPath,
                       condition: condition,
                       temperature: temperature,

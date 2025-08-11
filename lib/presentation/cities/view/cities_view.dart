@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '/ad_manager/ad_manager.dart';
 import '/core/animation/view/animated_bg_builder.dart';
@@ -6,7 +7,7 @@ import '/core/theme/theme.dart';
 import 'widgets/city_card.dart';
 import 'widgets/current_location_card.dart';
 import '/core/common_widgets/common_widgets.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '../controller/cities_controller.dart';
 
 class CitiesView extends StatelessWidget {
@@ -65,7 +66,7 @@ class _CitiesGrid extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         return Padding(
-          padding: const EdgeInsets.only(bottom: kElementInnerGap),
+          padding: const EdgeInsets.only(bottom: kGap),
           child: GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: kBodyHp),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -117,7 +118,7 @@ class _SearchWidget extends StatelessWidget {
                     color: kRed,
                     size: smallIcon(context),
                   ),
-                  const SizedBox(width: kElementWidthGap),
+                  const Gap(kGap),
                   Expanded(
                     child: Text(
                       controller.searchErrorMessage.value,

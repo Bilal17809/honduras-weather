@@ -13,6 +13,7 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
   final isWeatherDataLoaded = false.obs;
   var selectedDayIndex = 0.obs;
   var selectedCityName = ''.obs;
+  var currentWeatherCardHeight = 0.0.obs;
 
   @override
   void onReady() {

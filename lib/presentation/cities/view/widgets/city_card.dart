@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '/data/models/city_model.dart';
 import '/core/theme/theme.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/core/services/services.dart';
 import '/presentation/home/controller/home_controller.dart';
 import '../../controller/cities_controller.dart';
@@ -76,7 +77,7 @@ class CityCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: kElementInnerGap),
+              const Gap(kGap),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -84,7 +85,7 @@ class CityCard extends StatelessWidget {
                     '$temp°',
                     style: headlineMediumStyle(context).copyWith(color: kWhite),
                   ),
-                  const SizedBox(width: kElementWidthGap),
+                  const Gap(kGap),
                   Flexible(
                     child: Text(
                       condition,
@@ -95,7 +96,7 @@ class CityCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: kElementInnerGap),
+              const Gap(kGap),
               Text(
                 airQuality,
                 style: bodyMediumStyle(context).copyWith(color: kWhite),

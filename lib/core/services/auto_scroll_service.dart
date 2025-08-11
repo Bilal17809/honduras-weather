@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 
 class AutoScrollService {
   void setupAutoScroll({

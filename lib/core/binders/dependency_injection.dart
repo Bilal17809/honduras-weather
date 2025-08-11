@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
+import 'package:honduras_weather/core/animation/services/bg_animation_service.dart';
 import '/ad_manager/ad_manager.dart';
-import '/core/animation/controller/bg_animation_controller.dart';
 import '/presentation/cities/controller/cities_controller.dart';
 import '../config/client.dart';
 import '../local_storage/local_storage.dart';
@@ -64,10 +64,7 @@ class DependencyInjection {
     );
     Get.lazyPut<ConditionService>(() => ConditionService(), fenix: true);
     Get.lazyPut<AutoScrollService>(() => AutoScrollService(), fenix: true);
-    Get.lazyPut<BgAnimationController>(
-      () => BgAnimationController(),
-      fenix: true,
-    );
+    Get.lazyPut<BgAnimationService>(() => BgAnimationService(), fenix: true);
     Get.lazyPut<HomeController>(
       () => HomeController(Get.find<GetWeatherAndForecast>()),
       fenix: true,

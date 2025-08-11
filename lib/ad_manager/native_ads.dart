@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
-import '../core/constants/constant.dart';
+import '../core/constants/constants.dart';
 import '../core/theme/theme.dart';
 
 class NativeAdManager extends GetxController {

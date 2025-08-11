@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/constant.dart';
+import '../constants/constants.dart';
 import '/core/theme/theme.dart';
 
 class InputField extends StatelessWidget {
@@ -49,7 +49,9 @@ class InputField extends StatelessWidget {
         hintText: hintText,
         hintStyle:
             hintStyle ??
-            bodySmallStyle(context).copyWith(color: primaryColorLight, fontWeight: FontWeight.bold),
+            bodySmallStyle(
+              context,
+            ).copyWith(color: primaryColorLight, fontWeight: FontWeight.bold),
         contentPadding: contentPadding,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
@@ -74,7 +76,9 @@ class InputField extends StatelessWidget {
       ),
       style:
           textStyle ??
-          bodySmallStyle(context).copyWith(color: primaryColorLight, fontWeight: FontWeight.bold),
+          bodySmallStyle(
+            context,
+          ).copyWith(color: primaryColorLight, fontWeight: FontWeight.bold),
       onChanged: onChanged,
       onSubmitted: onSubmitted,
     );

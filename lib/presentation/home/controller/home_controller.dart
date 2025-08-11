@@ -79,7 +79,7 @@ class HomeController extends GetxController with ConnectivityMixin {
   }
 
   void _startAutoUpdate() {
-    _autoUpdateTimer = Timer.periodic(const Duration(minutes: 15), (timer) {
+    _autoUpdateTimer = Timer.periodic(const Duration(minutes: 10), (timer) {
       loadWeatherService.loadWeatherService(
         allCities,
         selectedCity: selectedCity.value,

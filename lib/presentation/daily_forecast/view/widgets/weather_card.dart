@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '/core/common_widgets/common_widgets.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/core/theme/theme.dart';
 
 class CurrentWeatherCard extends StatelessWidget {
@@ -28,8 +29,8 @@ class CurrentWeatherCard extends StatelessWidget {
     return Container(
       decoration: roundedDecor(context),
       padding: const EdgeInsets.symmetric(
-        vertical: kElementInnerGap,
-        horizontal: kElementWidthGap,
+        vertical: kGap,
+        horizontal: kElementGap,
       ),
       child: Column(
         children: [
@@ -53,7 +54,7 @@ class CurrentWeatherCard extends StatelessWidget {
                         context,
                       ).copyWith(fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: kElementInnerGap),
+                    const Gap(kGap),
                   ],
                 ),
               ),
@@ -75,18 +76,18 @@ class CurrentWeatherCard extends StatelessWidget {
                       'Feels like $feelsLike°',
                       style: bodyLargeStyle(context),
                     ),
-                    const SizedBox(height: kElementInnerGap),
+                    const Gap(kGap),
                   ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: kElementInnerGap),
+          const Gap(kGap),
           Container(
             decoration: roundedInnerDecor(context),
             padding: const EdgeInsets.symmetric(
-              vertical: kElementInnerGap,
-              horizontal: kElementWidthGap,
+              vertical: kGap,
+              horizontal: kGap,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +110,7 @@ class CurrentWeatherCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: kElementInnerGap),
+          const Gap(kGap),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../controller/icon_animation_controller.dart';
+import 'package:honduras_weather/core/animation/services/bg_animation_service.dart';
 import '../extension/weather_condition_extension.dart';
 
 class AnimatedWeatherIcon extends StatefulWidget {
@@ -24,13 +24,13 @@ class AnimatedWeatherIcon extends StatefulWidget {
 
 class _AnimatedWeatherIconState extends State<AnimatedWeatherIcon>
     with TickerProviderStateMixin {
-  late IconAnimationController _weatherAnimationController;
+  late IconAnimationService _iconAnimationController;
 
   @override
   void initState() {
     super.initState();
-    _weatherAnimationController = IconAnimationController();
-    _weatherAnimationController.initialize(
+    _iconAnimationController = IconAnimationService();
+    _iconAnimationController.initialize(
       vsync: this,
       condition: _getWeatherCondition(),
     );
@@ -50,19 +50,19 @@ class _AnimatedWeatherIconState extends State<AnimatedWeatherIcon>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.condition != widget.condition ||
         oldWidget.weatherCode != widget.weatherCode) {
-      _weatherAnimationController.updateCondition(_getWeatherCondition());
+      _iconAnimationController.updateCondition(_getWeatherCondition());
     }
   }
 
   @override
   void dispose() {
-    _weatherAnimationController.dispose();
+    _iconAnimationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _weatherAnimationController.applyAnimation(
+    return _iconAnimationController.applyAnimation(
       Image.asset(widget.imagePath, width: widget.width, height: widget.height),
     );
   }

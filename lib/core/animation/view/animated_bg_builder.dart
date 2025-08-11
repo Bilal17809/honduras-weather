@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../services/bg_animation_service.dart';
 import '/core/utils/weather_utils.dart';
 import '/presentation/home/controller/home_controller.dart';
-import '/core/constants/constant.dart';
-import '../controller/bg_animation_controller.dart';
+import '/core/constants/constants.dart';
 import 'animated_bg_image.dart';
 
 class AnimatedBgImageBuilder extends StatelessWidget {
@@ -12,13 +12,13 @@ class AnimatedBgImageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
-    final bgAnimationController = Get.find<BgAnimationController>();
+    final bgAnimationService = Get.find<BgAnimationService>();
 
     return AnimatedBuilder(
-      animation: bgAnimationController.animation,
+      animation: bgAnimationService.animation,
       builder: (context, child) {
         final offsetX =
-            -bgAnimationController.animation.value * mobileWidth(context);
+            -bgAnimationService.animation.value * mobileWidth(context);
 
         final selectedCity = homeController.selectedCity.value;
         final weather = selectedCity != null

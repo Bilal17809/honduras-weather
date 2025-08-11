@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '/presentation/home/controller/home_controller.dart';
 import '/presentation/splash/controller/splash_controller.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/core/theme/theme.dart';
 import 'shimmers.dart';
 
@@ -113,7 +114,7 @@ class _HourlyForecast extends StatelessWidget {
                   maxLines: 1,
                 ),
               ),
-              const SizedBox(height: kElementInnerGap),
+              const Gap(6),
               hourData?['condition']?['icon'] != null
                   ? Image.network(
                       'https:${hourData!['condition']['icon']}',
@@ -131,7 +132,7 @@ class _HourlyForecast extends StatelessWidget {
                       size: mediumIcon(context),
                       color: kWhite,
                     ),
-              const SizedBox(height: kElementInnerGap),
+              const Gap(kGap),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(

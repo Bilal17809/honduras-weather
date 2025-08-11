@@ -7,7 +7,7 @@ import '/core/services/map_service.dart';
 import 'package:honduras_weather/presentation/home/controller/home_controller.dart';
 import '/core/services/services.dart';
 import '/core/theme/theme.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});

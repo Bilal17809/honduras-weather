@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/core/theme/theme.dart';
 import '/core/utils/weather_utils.dart';
 

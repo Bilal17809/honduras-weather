@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../constants/constant.dart';
+import '../constants/constants.dart';
 import '/core/theme/theme.dart';
 
-class CustomButton extends StatelessWidget {
+class SimpleButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final double? width;
@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? shadowColor;
 
-  const CustomButton({
+  const SimpleButton({
     super.key,
     required this.onPressed,
     required this.text,
@@ -83,7 +83,7 @@ class IconActionButton extends StatelessWidget {
     required this.icon,
     required this.color,
     this.size,
-    this.padding = const EdgeInsets.all(kElementInnerGap),
+    this.padding = const EdgeInsets.all(kGap),
     this.backgroundColor,
     this.isCircular = false,
   });
@@ -99,9 +99,7 @@ class IconActionButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           shape: isCircular ? BoxShape.circle : BoxShape.rectangle,
-          borderRadius: isCircular
-              ? null
-              : BorderRadius.circular(kBorderRadius),
+          borderRadius: isCircular ? null : BorderRadius.circular(kGap),
         ),
         child: Icon(icon, color: color, size: resolvedSize),
       ),

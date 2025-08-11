@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import '../constants/constant.dart';
+import 'package:honduras_weather/presentation/terms/terms_view.dart';
+import '../constants/constants.dart';
 import '../local_storage/local_storage.dart';
 import '/core/theme/theme.dart';
 import '../utils/drawer_helper.dart';
@@ -32,7 +34,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: kElementInnerGap),
+                  const Gap(kGap),
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
@@ -64,6 +66,14 @@ class AppDrawer extends StatelessWidget {
               title: 'Rate Us',
               onTap: () {
                 DrawerActions.rateUs();
+              },
+            ),
+            Divider(color: primaryColorLight.withValues(alpha: 0.1)),
+            DrawerTile(
+              icon: Icons.star_rounded,
+              title: 'Remove Ads',
+              onTap: () {
+                Get.to(TermsView());
               },
             ),
             Divider(color: primaryColorLight.withValues(alpha: 0.1)),

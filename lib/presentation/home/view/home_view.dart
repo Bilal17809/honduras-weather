@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
         if (shouldExit == true) SystemNavigator.pop();
       },
       child: Scaffold(
-        key: globalKey,
+        key: globalDrawerKey,
         drawer: const AppDrawer(),
         onDrawerChanged: (isOpen) {
           homeController.isDrawerOpen.value = isOpen;

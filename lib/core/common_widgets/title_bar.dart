@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/core/theme/theme.dart';
 import 'buttons.dart';
-import '../constants/constant.dart';
+import '../constants/constants.dart';
 
 class TitleBar extends StatelessWidget {
   final List<Widget>? actions;
@@ -61,7 +61,7 @@ class TitleBar extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Text(
               title,
-              style: titleBoldMediumStyle(context),
+              style: titleMediumStyle(context),
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
             ),

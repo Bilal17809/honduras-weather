@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/constant.dart';
+import '../constants/constants.dart';
 import '../theme/theme.dart';
 
 class WeatherStat extends StatelessWidget {

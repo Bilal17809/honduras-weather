@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../core/animation/view/animated_weather_icon.dart';
 import '/ad_manager/ad_manager.dart';
@@ -7,7 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '/presentation/home/view/home_view.dart';
 import '/core/theme/theme.dart';
 import '/core/common_widgets/common_widgets.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -36,7 +37,7 @@ class SplashView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(height: kElementInnerGap),
+                      const Gap(kGap),
                       Column(
                         children: [
                           FittedBox(
@@ -121,7 +122,7 @@ class SplashView extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: kBodyHp,
                                     ),
-                                    child: CustomButton(
+                                    child: SimpleButton(
                                       width: mobileWidth(context) * 0.35,
                                       height: 52,
                                       backgroundColor: kWhite.withValues(

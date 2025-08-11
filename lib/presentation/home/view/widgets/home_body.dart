@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:honduras_weather/ad_manager/ad_manager.dart';
 import 'package:honduras_weather/data/models/weather_model.dart';
@@ -8,7 +9,7 @@ import '/core/platform_channels/android_widget_channel.dart';
 import '/presentation/daily_forecast/controller/daily_forecast_controller.dart';
 import '/core/services/services.dart';
 import '/core/utils/weather_utils.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/core/theme/theme.dart';
 import '/core/common_widgets/common_widgets.dart';
 import '/presentation/cities/view/cities_view.dart';
@@ -67,9 +68,9 @@ class HomeBody extends StatelessWidget {
                   },
                   child: WeatherContainer(weather: weather, temp: temp),
                 ),
-                const SizedBox(height: kElementInnerGap),
+                const Gap(kGap),
                 _WeatherRow(conditionService, weather),
-                const SizedBox(height: kElementInnerGap),
+                const Gap(kGap),
                 if (!homeController.isDrawerOpen.value) ...[
                   Obx(() {
                     final nativeAdManager = Get.find<NativeAdManager>();
@@ -77,13 +78,13 @@ class HomeBody extends StatelessWidget {
                         ? nativeAdManager.showNativeAd()
                         : const NativeAdShimmer();
                   }),
-                  const SizedBox(height: kElementInnerGap),
+                  const Gap(kGap),
                 ],
                 _TodayRow(weather: weather, conditionService: conditionService),
               ],
             ),
           ),
-          const SizedBox(height: kElementInnerGap),
+          const Gap(kGap),
           Flexible(child: const HourlyForecastList()),
         ],
       );
@@ -139,7 +140,7 @@ class _TodayRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Today', style: titleBoldMediumStyle(context)),
+          Text('Today', style: titleMediumStyle(context)),
           GestureDetector(
             onTap: () {
               Get.to(
