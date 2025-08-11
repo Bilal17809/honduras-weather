@@ -141,8 +141,8 @@ class NativeAdShimmer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kBodyHp),
       child: Shimmer.fromColors(
-        baseColor: getBgColor(context),
-        highlightColor: getPrimaryColor(context),
+        baseColor: getPrimaryColor(context).withValues(alpha: 0.4),
+        highlightColor: getPrimaryColor(context).withValues(alpha: 0.6),
         child: Container(
           height: 100,
           width: double.infinity,

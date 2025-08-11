@@ -42,7 +42,7 @@ class CurrentLocationCard extends StatelessWidget {
         },
         child: Container(
           decoration: roundedDecor(context).copyWith(
-            gradient: isDarkMode(context)
+            gradient: context.isDark
                 ? kContainerGradient(context)
                 : kGradient(context),
             borderRadius: BorderRadius.only(

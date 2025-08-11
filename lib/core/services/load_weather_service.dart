@@ -19,7 +19,7 @@ class LoadWeatherService {
     List<CityModel> cities, {
     CityModel? selectedCity,
     CityModel? currentLocationCity,
-    int batchSize = 10,
+    int batchSize = 15,
   }) async {
     try {
       String? selectedCityName = selectedCity?.cityAscii;

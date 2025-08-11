@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '/core/theme/app_colors.dart';
 import '/core/common/app_exceptions.dart';
 import '/presentation/home/controller/home_controller.dart';
 import '/core/local_storage/local_storage.dart';
@@ -36,7 +37,46 @@ class SplashController extends GetxController with ConnectivityMixin {
   final RxMap<String, Map<String, dynamic>> _rawDataStorage =
       <String, Map<String, dynamic>>{}.obs;
   final rawForecastData = <String, dynamic>{}.obs;
+  var visibleLetters = 0.obs;
+  var title = primaryColorLight.obs;
+  final String _targetText =
+      'Check live weather for major cities\nand remote areas in Honduras.';
+  bool _colorUpdate = true;
+  Timer? _flickerTimer;
+  Timer? _letterTimer;
+  final Color _color1 = kWhite;
+  final Color _color2 = kYellow;
   var showButton = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startSloganAnimation();
+      _animateTitle();
+    });
+  }
+
+  void _animateTitle() {
+    _letterTimer?.cancel();
+    _letterTimer = Timer.periodic(const Duration(milliseconds: 80), (timer) {
+      if (visibleLetters.value < _targetText.length) {
+        visibleLetters.value++;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  void _startSloganAnimation() {
+    title.value = _color1;
+    _flickerTimer?.cancel();
+
+    _flickerTimer = Timer.periodic(const Duration(milliseconds: 800), (_) {
+      title.value = _colorUpdate ? _color2 : _color1;
+      _colorUpdate = !_colorUpdate;
+    });
+  }
 
   @override
   void onReady() {

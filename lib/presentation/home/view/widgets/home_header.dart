@@ -26,24 +26,26 @@ class HomeHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                maxLines: 3,
-                selectedCity != null
-                    ? '${selectedCity.city}\n${weather?.region ?? 'N/a'}'
-                    : 'Error Fetching City',
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  maxLines: 3,
+                  selectedCity != null
+                      ? '${selectedCity.city}\n${weather?.region ?? 'N/a'}'
+                      : 'Error Fetching City',
 
-                style: headlineSmallStyle(context),
-              ),
-              Text(
-                DateTimeService.getFormattedCurrentDate(),
-                style: bodyLargeStyle(
-                  context,
-                ).copyWith(color: primaryText(context)),
-              ),
-            ],
+                  style: headlineSmallStyle(context),
+                ),
+                Text(
+                  DateTimeService.getFormattedCurrentDate(),
+                  style: bodyLargeStyle(
+                    context,
+                  ).copyWith(color: primaryText(context)),
+                ),
+              ],
+            ),
           ),
           GestureDetector(
             onTap: () => selectedCity != null

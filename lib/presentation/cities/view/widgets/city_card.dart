@@ -43,8 +43,8 @@ class CityCard extends StatelessWidget {
         },
         child: Container(
           decoration: roundedDecor(context).copyWith(
-            gradient: isDarkMode(context) ? null : kContainerGradient(context),
-            color: isDarkMode(context)
+            gradient: context.isDark ? null : kContainerGradient(context),
+            color: context.isDark
                 ? secondaryColorLight.withValues(alpha: 0.35)
                 : null,
             border: isCurrentlySelectedCity

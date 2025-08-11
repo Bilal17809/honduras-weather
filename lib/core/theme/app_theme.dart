@@ -39,9 +39,9 @@ BoxDecoration roundedDecor(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.circular(24),
   boxShadow: [
     BoxShadow(
-      color: isDarkMode(context)
+      color: context.isDark
           ? darkBgColor.withValues(alpha: 0.3)
-          : getPrimaryColor(context).withValues(alpha: 0.3),
+          : getPrimaryColor(context).withValues(alpha: 0.25),
       blurRadius: 6,
       spreadRadius: 1,
       offset: Offset(0, 2),
@@ -54,7 +54,7 @@ BoxDecoration roundedInnerDecor(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.circular(24),
   boxShadow: [
     BoxShadow(
-      color: isDarkMode(context)
+      color: context.isDark
           ? darkBgColor.withValues(alpha: 0.3)
           : kWhite.withValues(alpha: 0.1),
       blurRadius: 6,
@@ -65,7 +65,7 @@ BoxDecoration roundedInnerDecor(BuildContext context) => BoxDecoration(
 );
 
 BoxDecoration roundedForecastDecor(BuildContext context) => BoxDecoration(
-  color: isDarkMode(context)
+  color: context.isDark
       ? secondaryColorLight.withValues(alpha: 0.9)
       : kWhite.withValues(alpha: 0.9),
   borderRadius: BorderRadius.only(
@@ -78,7 +78,7 @@ BoxDecoration roundedSelectionDecoration(
   BuildContext context, {
   required bool isSelected,
 }) {
-  final isDark = isDarkMode(context);
+  final isDark = context.isDark;
 
   return BoxDecoration(
     color: isDark
@@ -103,39 +103,35 @@ BoxDecoration roundedSelectionDecoration(
 }
 
 Color getPrimaryColor(BuildContext context) =>
-    isDarkMode(context) ? primaryColorDark : primaryColorLight;
+    context.isDark ? primaryColorDark : primaryColorLight;
 
-Color getSecondaryColor(BuildContext context) => isDarkMode(context)
+Color getSecondaryColor(BuildContext context) => context.isDark
     ? secondaryColorDark.withValues(alpha: 0.1)
     : secondaryColorLight;
 
-Color getSearchBgColor(BuildContext context) => isDarkMode(context)
+Color getSearchBgColor(BuildContext context) => context.isDark
     ? secondaryColorDark.withValues(alpha: 0.1)
     : primaryColorLight;
 
 Color getBgColor(BuildContext context) =>
-    isDarkMode(context) ? darkBgColor : lightBgColor;
+    context.isDark ? darkBgColor : lightBgColor;
 
 Color secondaryText(BuildContext context) =>
-    isDarkMode(context) ? textWhiteColor : textBlackColor;
+    context.isDark ? textWhiteColor : textBlackColor;
 
 Color primaryText(BuildContext context) =>
-    isDarkMode(context) ? textWhiteColor : textWhiteColor;
+    context.isDark ? textWhiteColor : textWhiteColor;
 
 Color coloredText(BuildContext context) =>
-    isDarkMode(context) ? textWhiteColor : textPrimaryColor;
-//
-// Color coloredText2(BuildContext context) =>
-//     isDarkMode(context) ? textWhiteColor : textSecondaryColor;
+    context.isDark ? textWhiteColor : textPrimaryColor;
 
-Color getIconColor(BuildContext context) =>
-    isDarkMode(context) ? kWhite : kWhite;
+Color getIconColor(BuildContext context) => context.isDark ? kWhite : kWhite;
 
 LinearGradient kGradient(BuildContext context) {
   return LinearGradient(
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
-    colors: isDarkMode(context)
+    colors: context.isDark
         ? [kWhite.withValues(alpha: 0.08), kWhite.withValues(alpha: 0.06)]
         : [primaryColorLight, secondaryColorLight],
     stops: [0.3, 0.95],
@@ -146,7 +142,7 @@ LinearGradient kContainerGradient(BuildContext context) {
   return LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: isDarkMode(context)
+    colors: context.isDark
         ? [kWhite.withValues(alpha: 0.4), kWhite.withValues(alpha: 0.2)]
         : [primaryColorLight, secondaryColorLight],
     stops: [0.05, 0.75],
@@ -157,7 +153,7 @@ LinearGradient kSelectedGradient(BuildContext context) {
   return LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: isDarkMode(context)
+    colors: context.isDark
         ? [kWhite.withValues(alpha: 0.08), kWhite.withValues(alpha: 0.06)]
         : [selectedLightColor, selectedDarkColor],
     stops: [0.05, 0.5],

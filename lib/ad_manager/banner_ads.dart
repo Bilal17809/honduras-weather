@@ -89,8 +89,8 @@ class BannerAdManager extends GetxController {
       return SafeArea(
         bottom: true,
         child: Shimmer.fromColors(
-          baseColor: getBgColor(Get.context!),
-          highlightColor: getPrimaryColor(Get.context!),
+          baseColor: getPrimaryColor(Get.context!).withValues(alpha: 0.4),
+          highlightColor: getPrimaryColor(Get.context!).withValues(alpha: 0.6),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(

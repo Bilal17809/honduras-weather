@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: kElementGap),
                       child: Image.asset(
-                        'images/weather_icon.png',
+                        'images/icon.png',
                         height: primaryIcon(context),
                       ),
                     ),
@@ -36,7 +36,7 @@ class AppDrawer extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      'Estonia Weather',
+                      'Honduras Weather',
                       style: headlineSmallStyle(context),
                     ),
                   ),
@@ -96,7 +96,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 trackOutlineWidth: WidgetStatePropertyAll(1),
 
-                // activeThumbImage: AssetImage(Assets.images.icon.path),
+                activeThumbImage: AssetImage('images/icon.png'),
               ),
             ),
             Divider(color: primaryColorLight.withValues(alpha: 0.1)),

@@ -45,8 +45,8 @@ class ShimmerListView extends StatelessWidget {
 
     return shimmerEnabled
         ? Shimmer.fromColors(
-            baseColor: kWhite,
-            highlightColor: primaryColorLight.withValues(alpha: 0.01),
+            baseColor: getPrimaryColor(context).withValues(alpha: 0.4),
+            highlightColor: getPrimaryColor(context).withValues(alpha: 0.6),
             child: listView,
           )
         : listView;
