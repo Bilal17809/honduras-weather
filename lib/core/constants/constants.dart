@@ -7,6 +7,7 @@ const double kGap = 8.0;
 
 /// ========== Border ==========
 const double kCircularBorderRadius = 50.0;
+const double kBorderRadius = 14.0;
 
 /// ========== Icon Sizes ==========
 double primaryIcon(BuildContext context) => mobileWidth(context) * 0.32;

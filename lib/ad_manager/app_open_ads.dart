@@ -44,7 +44,7 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
   Future<void> initRemoteConfig() async {
     try {
       await RemoteConfigService().init();
-      final showAd = RemoteConfigService().getBool('AppOpenAd');
+      final showAd = RemoteConfigService().getBool('AppOpenAd', 'AppOpenAd');
       if (showAd) {
         _loadAppOpenAd();
       }

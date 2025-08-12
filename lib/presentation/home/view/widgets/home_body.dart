@@ -6,7 +6,6 @@ import 'package:honduras_weather/data/models/weather_model.dart';
 import 'package:honduras_weather/presentation/daily_forecast/view/daily_forecast_view.dart';
 import 'package:honduras_weather/presentation/home/controller/home_controller.dart';
 import '/core/platform_channels/android_widget_channel.dart';
-import '/presentation/daily_forecast/controller/daily_forecast_controller.dart';
 import '/core/services/services.dart';
 import '/core/utils/weather_utils.dart';
 import '/core/constants/constants.dart';
@@ -133,8 +132,6 @@ class _TodayRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dailyForecastController = Get.find<DailyForecastController>();
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kBodyHp),
       child: Row(
@@ -155,7 +152,6 @@ class _TodayRow extends StatelessWidget {
                   precipitation: conditionService.chanceOfRain,
                   humidity: conditionService.humidity,
                   windSpeed: conditionService.windSpeed,
-                  scrollController: dailyForecastController.scrollController,
                 ),
               );
             },

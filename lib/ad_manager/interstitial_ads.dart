@@ -42,7 +42,10 @@ class InterstitialAdManager extends GetxController {
         fetchTimeout: const Duration(seconds: 10),
         minimumFetchInterval: const Duration(seconds: 1),
       );
-      final newThreshold = RemoteConfigService().getInt('InterstitialAd', '');
+      final newThreshold = RemoteConfigService().getInt(
+        'InterstitialAd',
+        'InterstitialAd',
+      );
       if (newThreshold > 0) {
         displayThreshold = newThreshold;
       }

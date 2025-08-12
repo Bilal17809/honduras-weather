@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:honduras_weather/presentation/terms/terms_view.dart';
+import '/presentation/premium_screen/premium_screen.dart';
 import '../constants/constants.dart';
 import '../local_storage/local_storage.dart';
 import '/core/theme/theme.dart';
@@ -69,14 +71,16 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             Divider(color: primaryColorLight.withValues(alpha: 0.1)),
-            DrawerTile(
-              icon: Icons.star_rounded,
-              title: 'Remove Ads',
-              onTap: () {
-                Get.to(TermsView());
-              },
-            ),
-            Divider(color: primaryColorLight.withValues(alpha: 0.1)),
+            if (Platform.isIOS) ...[
+              DrawerTile(
+                icon: Icons.star_rounded,
+                title: 'Remove Ads',
+                onTap: () {
+                  Get.to(PremiumScreen());
+                },
+              ),
+              Divider(color: primaryColorLight.withValues(alpha: 0.1)),
+            ],
             ListTile(
               leading: Icon(
                 Icons.dark_mode_rounded,

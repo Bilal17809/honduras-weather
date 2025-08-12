@@ -30,12 +30,18 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
         ever(homeController.selectedCity, (_) {
           loadForecastData();
           autoScrollService.setupAutoScroll(
-            isWeatherDataLoaded: true.obs,
+            isWeatherDataLoaded: isWeatherDataLoaded,
             scrollController: scrollController,
           );
         });
       },
     );
+  }
+
+  @override
+  void onClose() {
+    isWeatherDataLoaded.value = false;
+    super.onClose();
   }
 
   void loadForecastData() {

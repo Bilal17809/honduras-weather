@@ -48,21 +48,42 @@ class HomeHeader extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => selectedCity != null
-                ? MapService.openMaps(
-                    selectedCity.latitude,
-                    selectedCity.longitude,
-                  )
-                : SimpleToast.showCustomToast(
-                    context: context,
-                    message: AppExceptions().failMap,
-                    type: ToastificationType.error,
-                    icon: Icons.error_outline,
-                    primaryColor: kRed,
-                  ),
-            child: SizedBox(
+            onTap: () =>
+                selectedCity?.cityAscii.toLowerCase() !=
+                    homeController.currentLocationCity?.cityAscii.toLowerCase()
+                ? selectedCity != null
+                      ? MapService.openMaps(
+                          selectedCity.latitude,
+                          selectedCity.longitude,
+                        )
+                      : SimpleToast.showCustomToast(
+                          context: context,
+                          message: AppExceptions().failMap,
+                          type: ToastificationType.error,
+                          icon: Icons.error_outline,
+                          primaryColor: kRed,
+                        )
+                : null,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(kBorderRadius),
+              ),
               width: primaryIcon(context),
-              child: Image.asset('images/map.png', fit: BoxFit.contain),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(kBorderRadius),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.asset(
+                    (selectedCity != null &&
+                            selectedCity.cityAscii.toLowerCase() !=
+                                homeController.currentLocationCity?.cityAscii
+                                    .toLowerCase())
+                        ? 'images/cities/${selectedCity.cityAscii.toLowerCase()}.jpg'
+                        : 'images/map.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
           ),
         ],

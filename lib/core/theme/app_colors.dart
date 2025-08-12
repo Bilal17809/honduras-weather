@@ -40,4 +40,4 @@ const Color unselectedColor = Color(0xFFCEE7F9);
 
 // App background
 const Color lightBgColor = Color(0xFF6DA7F1);
-const Color darkBgColor = Color(0xDD0A1B42);
+const Color darkBgColor = Color(0xDD02091B);

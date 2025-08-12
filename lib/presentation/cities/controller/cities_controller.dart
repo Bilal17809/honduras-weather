@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:honduras_weather/presentation/home/controller/home_controller.dart';
 import '/ad_manager/ad_manager.dart';
 import '/core/mixins/connectivity_mixin.dart';
 import '/core/services/services.dart';
@@ -10,6 +11,7 @@ import '/presentation/splash/controller/splash_controller.dart';
 class CitiesController extends GetxController with ConnectivityMixin {
   final splashController = Get.find<SplashController>();
   final conditionService = Get.find<ConditionService>();
+  final homeController = Get.find<HomeController>();
 
   var hasSearchError = false.obs;
   var searchErrorMessage = ''.obs;
@@ -30,6 +32,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
       await Future.delayed(const Duration(milliseconds: 50));
     }
     filteredCities.value = splashController.allCities;
+    _reorderCities();
     searchController.addListener(() {
       searchCities(searchController.text);
     });
@@ -38,6 +41,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
   void searchCities(String query) {
     if (query.isEmpty) {
       filteredCities.value = splashController.allCities;
+      _reorderCities();
       hasSearchError.value = false;
       return;
     }
@@ -60,6 +64,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
         filteredCities.clear();
       } else {
         filteredCities.value = results;
+        _reorderCities();
         hasSearchError.value = false;
       }
 
@@ -82,6 +87,17 @@ class CitiesController extends GetxController with ConnectivityMixin {
         WidgetUpdateManager.updateWeatherWidget();
       },
     );
+  }
+
+  void _reorderCities() {
+    final selectedCity = homeController.selectedCity.value;
+    if (selectedCity != null) {
+      filteredCities.sort((a, b) {
+        if (a.cityAscii == selectedCity.cityAscii) return -1;
+        if (b.cityAscii == selectedCity.cityAscii) return 1;
+        return a.city.compareTo(b.city);
+      });
+    }
   }
 
   @override

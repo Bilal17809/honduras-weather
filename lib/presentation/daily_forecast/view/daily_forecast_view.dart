@@ -19,7 +19,6 @@ class DailyForecastView extends StatelessWidget {
   final String precipitation;
   final String humidity;
   final String windSpeed;
-  final ScrollController? scrollController;
 
   const DailyForecastView({
     super.key,
@@ -30,7 +29,6 @@ class DailyForecastView extends StatelessWidget {
     required this.precipitation,
     required this.humidity,
     required this.windSpeed,
-    this.scrollController,
   });
 
   @override
@@ -76,7 +74,10 @@ class DailyForecastView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  HourlyForecastList(customScrollController: scrollController),
+                  HourlyForecastList(
+                    customScrollController:
+                        Get.find<DailyForecastController>().scrollController,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: kBodyHp * 2,

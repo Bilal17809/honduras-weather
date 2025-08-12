@@ -75,16 +75,18 @@ class HomeController extends GetxController with ConnectivityMixin {
   @override
   void onClose() {
     _autoUpdateTimer?.cancel();
+    isWeatherDataLoaded.value = false;
     super.onClose();
   }
 
   void _startAutoUpdate() {
-    _autoUpdateTimer = Timer.periodic(const Duration(minutes: 10), (timer) {
+    _autoUpdateTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
       loadWeatherService.loadWeatherService(
         allCities,
         selectedCity: selectedCity.value,
         currentLocationCity: currentLocationCity,
       );
+      print('############widget refreshed');
     });
   }
 

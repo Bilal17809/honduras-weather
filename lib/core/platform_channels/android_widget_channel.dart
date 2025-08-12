@@ -12,8 +12,9 @@ class WidgetUpdateManager {
     _timer?.cancel();
     if (!await WidgetUpdaterService.isWidgetActive()) return;
     updateWeatherWidget();
-    _timer = Timer.periodic(const Duration(minutes: 10), (_) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (_) {
       updateWeatherWidget();
+      // print('!!!!!!!!!!!!!!!!!!!!!weather updated');
     });
   }
 
@@ -68,6 +69,7 @@ class WidgetUpdaterService {
   static Future<void> requestPinWidget() async {
     try {
       await _channel.invokeMethod('requestPinWidget');
+      WidgetUpdateManager.startPeriodicUpdate();
     } catch (e) {
       debugPrint("Error requesting widget pin: $e");
     }

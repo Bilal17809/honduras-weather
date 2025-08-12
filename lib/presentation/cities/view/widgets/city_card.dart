@@ -19,8 +19,8 @@ class CityCard extends StatelessWidget {
     final HomeController homeController = Get.find<HomeController>();
 
     return Obx(() {
-      final isCurrentlySelectedCity =
-          homeController.selectedCity.value?.city == city.cityAscii;
+      final isSelected =
+          homeController.selectedCity.value?.cityAscii == city.cityAscii;
       final weather =
           controller.conditionService.allCitiesWeather[city.cityAscii];
       final temp = weather?.temperature.round().toString() ?? '--';
@@ -44,12 +44,21 @@ class CityCard extends StatelessWidget {
         },
         child: Container(
           decoration: roundedDecor(context).copyWith(
-            gradient: context.isDark ? null : kContainerGradient(context),
+            gradient: context.isDark
+                ? (isSelected ? kSelectedGradient(context) : null)
+                : (isSelected
+                      ? kSelectedGradient(context)
+                      : kContainerGradient(context)),
             color: context.isDark
                 ? secondaryColorLight.withValues(alpha: 0.35)
                 : null,
-            border: isCurrentlySelectedCity
-                ? Border.all(color: getPrimaryColor(context), width: 2)
+            border: isSelected
+                ? Border.all(
+                    color: context.isDark
+                        ? secondaryColorDark
+                        : selectedLightColor,
+                    width: 2,
+                  )
                 : null,
           ),
           padding: const EdgeInsets.all(kBodyHp),
@@ -66,12 +75,11 @@ class CityCard extends StatelessWidget {
                         context,
                       ).copyWith(color: kWhite, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                   ),
                   Icon(
-                    isCurrentlySelectedCity
-                        ? Icons.my_location
-                        : Icons.location_on,
+                    isSelected ? Icons.my_location : Icons.location_on,
                     color: kWhite,
                     size: smallIcon(context),
                   ),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
 import '../core/constants/constants.dart';
+import '../core/services/services.dart';
 import '../core/theme/theme.dart';
 
 class NativeAdManager extends GetxController {
@@ -15,7 +16,7 @@ class NativeAdManager extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _loadNativeAd();
+    initRemoteConfig();
   }
 
   @override
@@ -28,6 +29,21 @@ class NativeAdManager extends GetxController {
     return Platform.isAndroid
         ? 'ca-app-pub-3940256099942544/2247696110'
         : throw UnsupportedError('Unsupported platform');
+  }
+
+  Future<void> initRemoteConfig() async {
+    try {
+      await RemoteConfigService().init();
+      final showNativeAd = RemoteConfigService().getBool(
+        'NativeAd',
+        'NativeAd',
+      );
+      if (showNativeAd) {
+        _loadNativeAd();
+      }
+    } catch (e) {
+      debugPrint("Failed to init native remote config: $e");
+    }
   }
 
   void _loadNativeAd() {

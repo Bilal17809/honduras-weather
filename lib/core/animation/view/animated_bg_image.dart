@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '/core/constants/constants.dart';
-import '/core/theme/theme.dart';
 import '/core/utils/weather_utils.dart';
 
 class AnimatedBgImage extends StatelessWidget {
@@ -19,10 +18,7 @@ class AnimatedBgImage extends StatelessWidget {
           image: DecorationImage(
             image: AssetImage(bgPath),
             fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              secondaryColorLight.withValues(alpha: 0.34),
-              BlendMode.hardLight,
-            ),
+            opacity: 0.5,
           ),
         ),
       ),

@@ -5,7 +5,7 @@ class AppTheme {
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: primaryColorLight,
-    scaffoldBackgroundColor: lightBgColor,
+    scaffoldBackgroundColor: kBlack,
     colorScheme: ColorScheme.light(
       primary: primaryColorLight,
       secondary: secondaryColorLight,
@@ -20,7 +20,7 @@ class AppTheme {
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: primaryColorDark,
-    scaffoldBackgroundColor: darkBgColor,
+    scaffoldBackgroundColor: kBlack,
     colorScheme: ColorScheme.dark(
       primary: primaryColorDark,
       secondary: secondaryColorDark,
@@ -39,9 +39,7 @@ BoxDecoration roundedDecor(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.circular(24),
   boxShadow: [
     BoxShadow(
-      color: context.isDark
-          ? darkBgColor.withValues(alpha: 0.3)
-          : getPrimaryColor(context).withValues(alpha: 0.25),
+      color: kBlack.withValues(alpha: 0.3),
       blurRadius: 6,
       spreadRadius: 1,
       offset: Offset(0, 2),
@@ -54,9 +52,7 @@ BoxDecoration roundedInnerDecor(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.circular(24),
   boxShadow: [
     BoxShadow(
-      color: context.isDark
-          ? darkBgColor.withValues(alpha: 0.3)
-          : kWhite.withValues(alpha: 0.1),
+      color: kBlack.withValues(alpha: 0.3),
       blurRadius: 6,
       spreadRadius: 1,
       offset: Offset(0, 2),
@@ -90,9 +86,7 @@ BoxDecoration roundedSelectionDecoration(
     borderRadius: BorderRadius.circular(24),
     boxShadow: [
       BoxShadow(
-        color: isDark
-            ? darkBgColor.withValues(alpha: 0.3)
-            : selectedDarkColor.withValues(alpha: 0.3),
+        color: kBlack.withValues(alpha: 0.3),
         blurRadius: 6,
         spreadRadius: 1,
         offset: Offset(0, 2),
@@ -153,8 +147,8 @@ LinearGradient kSelectedGradient(BuildContext context) {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: context.isDark
-        ? [kWhite.withValues(alpha: 0.08), kWhite.withValues(alpha: 0.06)]
+        ? [kWhite.withValues(alpha: 0.04), kWhite.withValues(alpha: 0.05)]
         : [selectedLightColor, selectedDarkColor],
-    stops: [0.05, 0.7],
+    stops: [0, 0.9],
   );
 }
