@@ -38,7 +38,7 @@ class HomeController extends GetxController with ConnectivityMixin {
 
   Future<void> _safeInit() async {
     while (!splashController.isAppReady) {
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future.delayed(const Duration(minutes: 15));
     }
 
     final allCities = splashController.allCities;

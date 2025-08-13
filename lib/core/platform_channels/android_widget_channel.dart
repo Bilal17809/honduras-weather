@@ -12,7 +12,7 @@ class WidgetUpdateManager {
     _timer?.cancel();
     if (!await WidgetUpdaterService.isWidgetActive()) return;
     updateWeatherWidget();
-    _timer = Timer.periodic(const Duration(seconds: 3), (_) {
+    _timer = Timer.periodic(const Duration(minutes: 15), (_) {
       updateWeatherWidget();
       // print('!!!!!!!!!!!!!!!!!!!!!weather updated');
     });
