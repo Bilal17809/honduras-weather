@@ -14,7 +14,6 @@ class WidgetUpdateManager {
     updateWeatherWidget();
     _timer = Timer.periodic(const Duration(minutes: 15), (_) {
       updateWeatherWidget();
-      // print('!!!!!!!!!!!!!!!!!!!!!weather updated');
     });
   }
 

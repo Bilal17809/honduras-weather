@@ -38,7 +38,7 @@ class HomeController extends GetxController with ConnectivityMixin {
 
   Future<void> _safeInit() async {
     while (!splashController.isAppReady) {
-      await Future.delayed(const Duration(minutes: 15));
+      await Future.delayed(const Duration(milliseconds: 50));
     }
 
     final allCities = splashController.allCities;
@@ -80,13 +80,12 @@ class HomeController extends GetxController with ConnectivityMixin {
   }
 
   void _startAutoUpdate() {
-    _autoUpdateTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    _autoUpdateTimer = Timer.periodic(const Duration(minutes: 15), (timer) {
       loadWeatherService.loadWeatherService(
         allCities,
         selectedCity: selectedCity.value,
         currentLocationCity: currentLocationCity,
       );
-      print('############widget refreshed');
     });
   }
 

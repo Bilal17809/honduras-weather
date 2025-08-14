@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:honduras_weather/presentation/splash/view/splash_view.dart';
 import '/core/binders/dependency_injection.dart';
 import '/core/local_storage/local_storage.dart';
@@ -10,6 +11,7 @@ import 'core/theme/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await MobileAds.instance.initialize();
   await AqiService.initialize();
   Get.put(AppOpenAdManager());
   DependencyInjection.init();

@@ -13,4 +13,3 @@ export 'weather_codes_loader.dart';
 export 'remote_config_service.dart';
 export 'auto_scroll_service.dart';
 export 'onesignal.dart';
-export 'bg_service.dart';
