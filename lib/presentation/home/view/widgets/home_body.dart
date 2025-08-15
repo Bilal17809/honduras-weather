@@ -84,7 +84,7 @@ class HomeBody extends StatelessWidget {
             ),
           ),
           const Gap(kGap),
-          Flexible(child: const HourlyForecastList()),
+          Flexible(child: HourlyForecastList()),
         ],
       );
     });

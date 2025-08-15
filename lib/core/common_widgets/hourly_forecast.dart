@@ -20,8 +20,15 @@ class HourlyForecastList extends StatelessWidget {
         customScrollController ?? homeController.scrollController;
 
     return Obx(() {
-      final forecastDays =
-          splashController.rawForecastData['forecast']?['forecastday'];
+      final selectedCity = homeController.selectedCity.value;
+      Map<String, dynamic> cityForecastData;
+      if (selectedCity != null) {
+        cityForecastData = splashController.getCityForecastData(selectedCity);
+      } else {
+        cityForecastData = splashController.rawForecastData;
+      }
+
+      final forecastDays = cityForecastData['forecast']?['forecastday'];
       final todayData = (forecastDays as List?)?.firstOrNull;
       final hourlyList = todayData?['hour'] as List? ?? [];
       final now = DateTime.now();

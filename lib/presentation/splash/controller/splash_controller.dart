@@ -153,16 +153,6 @@ class SplashController extends GetxController with ConnectivityMixin {
     await localStorage.setBool('has_current_location', currentCity != null);
   }
 
-  String get selectedCityName => selectedCity.value?.cityAscii ?? 'Loading...';
-  bool get isAppReady => isDataLoaded.value;
-  CityModel? get currentCity => currentLocationCity.value;
-  CityModel? get chosenCity => selectedCity.value;
-  bool get isFirstTime => isFirstLaunch.value;
-  Map<String, dynamic> get rawWeatherData {
-    final key = LocationUtilsService.fromCityModel(selectedCity.value!);
-    return _rawDataStorage[key] ?? {};
-  }
-
   void cacheCityData(String key, Map<String, dynamic> data) {
     _rawDataStorage[key] = data;
   }
@@ -172,5 +162,20 @@ class SplashController extends GetxController with ConnectivityMixin {
     if (_rawDataStorage.containsKey(key)) {
       rawForecastData.value = Map<String, dynamic>.from(_rawDataStorage[key]!);
     }
+  }
+
+  Map<String, dynamic> getCityForecastData(CityModel city) {
+    final key = LocationUtilsService.fromCityModel(city);
+    return _rawDataStorage[key] ?? {};
+  }
+
+  String get selectedCityName => selectedCity.value?.cityAscii ?? 'Loading...';
+  bool get isAppReady => isDataLoaded.value;
+  CityModel? get currentCity => currentLocationCity.value;
+  CityModel? get chosenCity => selectedCity.value;
+  bool get isFirstTime => isFirstLaunch.value;
+  Map<String, dynamic> get rawWeatherData {
+    final key = LocationUtilsService.fromCityModel(selectedCity.value!);
+    return _rawDataStorage[key] ?? {};
   }
 }

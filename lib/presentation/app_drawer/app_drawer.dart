@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '/presentation/premium_screen/premium_screen.dart';
-import '../constants/constants.dart';
-import '../local_storage/local_storage.dart';
+import '../../core/constants/constants.dart';
+import '../../core/local_storage/local_storage.dart';
 import '/core/theme/theme.dart';
-import '../utils/drawer_helper.dart';
+import '../../core/utils/drawer_helper.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

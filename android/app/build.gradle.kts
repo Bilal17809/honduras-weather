@@ -8,10 +8,18 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// Load key.properties
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
+// ✅ Load local.properties
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
 }
 
 android {
@@ -30,10 +38,13 @@ android {
 
     defaultConfig {
         applicationId = "com.unisoftaps.honduras_weather"
-        minSdk = 23
+
+        // ✅ Read minSdkVersion from local.properties
+        minSdk = localProperties["flutter.minSdkVersion"].toString().toInt()
+
         targetSdk = 36
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        versionCode = localProperties["flutter.versionCode"].toString().toInt()
+        versionName = localProperties["flutter.versionName"].toString()
     }
 
     buildTypes {
@@ -53,6 +64,7 @@ android {
         jvmTarget = "11"
     }
 }
+
 apply(plugin = "com.google.gms.google-services")
 
 dependencies {
