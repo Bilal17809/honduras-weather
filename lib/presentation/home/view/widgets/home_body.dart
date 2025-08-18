@@ -70,17 +70,23 @@ class HomeBody extends StatelessWidget {
                 const Gap(kGap),
                 _WeatherRow(conditionService, weather),
                 const Gap(kGap),
-                if (!homeController.isDrawerOpen.value) ...[
-                  Obx(() {
-                    final nativeAdManager = Get.find<NativeAdManager>();
-                    return nativeAdManager.isAdLoaded.value
-                        ? nativeAdManager.showNativeAd()
-                        : const NativeAdShimmer();
-                  }),
-                  const Gap(kGap),
-                ],
-                _TodayRow(weather: weather, conditionService: conditionService),
               ],
+            ),
+          ),
+          if (!homeController.isDrawerOpen.value) ...[
+            Obx(() {
+              final nativeAdManager = Get.find<NativeAdManager>();
+              return nativeAdManager.isAdLoaded.value
+                  ? nativeAdManager.showNativeAd()
+                  : const NativeAdShimmer();
+            }),
+            const Gap(kGap),
+          ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kBodyHp * 2),
+            child: _TodayRow(
+              weather: weather,
+              conditionService: conditionService,
             ),
           ),
           const Gap(kGap),

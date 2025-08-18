@@ -17,6 +17,7 @@ class NativeAdManager extends GetxController {
   void onInit() {
     super.onInit();
     initRemoteConfig();
+    _loadNativeAd();
   }
 
   @override

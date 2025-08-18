@@ -16,9 +16,8 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SplashController>();
-    final ad = Get.find<InterstitialAdManager>();
+    final ad = Get.find<SplashInterstitialManager>();
     return Scaffold(
-      backgroundColor: kWhite,
       body: Obx(
         () => Stack(
           children: [
@@ -131,8 +130,8 @@ class SplashView extends StatelessWidget {
                                       shadowColor: kBlue,
                                       textColor: textWhiteColor,
                                       onPressed: () async {
-                                        if (!ad.isShow.value) {
-                                          ad.showAd();
+                                        if (!ad.isShowing.value) {
+                                          ad.showSplashAd(() {});
                                           Get.off(() => HomeView());
                                         } else {
                                           Get.off(() => HomeView());

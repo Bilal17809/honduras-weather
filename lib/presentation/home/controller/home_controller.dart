@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:honduras_weather/ad_manager/ad_manager.dart';
 import '/core/mixins/connectivity_mixin.dart';
 import '/core/platform_channels/android_widget_channel.dart';
 import '/domain/use_cases/use_case.dart';
@@ -34,6 +35,8 @@ class HomeController extends GetxController with ConnectivityMixin {
     _safeInit();
     WidgetUpdaterService.setupMethodChannelHandler();
     WidgetUpdateManager.startPeriodicUpdate();
+    Get.find<InterstitialAdManager>().checkAndDisplayAd();
+    Get.find<BannerAdManager>().loadBannerAd('ad1');
   }
 
   Future<void> _safeInit() async {

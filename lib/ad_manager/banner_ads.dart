@@ -36,9 +36,7 @@ class BannerAdManager extends GetxController {
       isBannerAdEnabled.value = showBanner;
 
       if (showBanner) {
-        for (int i = 1; i <= 5; i++) {
-          loadBannerAd('ad$i');
-        }
+        loadBannerAd('ad1');
       }
     } catch (e) {
       debugPrint("Failed to init banner remote config: $e");

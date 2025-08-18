@@ -32,7 +32,7 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
       _resumeEligible = true;
     } else if (state == AppLifecycleState.resumed) {
       Future.delayed(const Duration(milliseconds: 80), () {
-        if (_resumeEligible && _interstitialAdDismissed) {
+        if (_resumeEligible && !_interstitialAdDismissed) {
           _displayAdIfAvailable();
         }
         _resumeEligible = false;

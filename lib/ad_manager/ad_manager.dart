@@ -3,3 +3,4 @@ export 'banner_ads.dart';
 export 'interstitial_ads.dart';
 export 'native_ads.dart';
 export 'remove_ads.dart';
+export 'splash_interstitial.dart';
