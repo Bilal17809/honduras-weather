@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "782261717398",
-    "project_id": "honduras-weather",
-    "storage_bucket": "honduras-weather.firebasestorage.app"
+    "project_number": "1004715302701",
+    "project_id": "honduras-weather-forecast",
+    "storage_bucket": "honduras-weather-forecast.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:782261717398:android:04eed38c2b0c6dcbf4b5b7",
+        "mobilesdk_app_id": "1:1004715302701:android:400331f32aa5c5dec33da4",
         "android_client_info": {
-          "package_name": "com.unisoftaps.honduras_weather"
+          "package_name": "com.unisoftaps.hondurasweatherforecast"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBu-VZQWOVJYjcyWYtJM13ZHIRJ84AisCg"
+          "current_key": "AIzaSyCL6mGXmg8Af0nP6QM-w5n5sgcr0-TFrYM"
         }
       ],
       "services": {

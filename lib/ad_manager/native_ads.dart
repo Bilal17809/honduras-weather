@@ -27,17 +27,14 @@ class NativeAdManager extends GetxController {
 
   String get _adUnitId {
     return Platform.isAndroid
-        ? 'ca-app-pub-3940256099942544/2247696110'
+        ? 'ca-app-pub-8172082069591999/3399617474'
         : throw UnsupportedError('Unsupported platform');
   }
 
   Future<void> initRemoteConfig() async {
     try {
       await RemoteConfigService().init();
-      final showNativeAd = RemoteConfigService().getBool(
-        'NativeAd',
-        'NativeAd',
-      );
+      final showNativeAd = RemoteConfigService().getBool('NativeAdvAd', '');
       if (showNativeAd) {
         _loadNativeAd();
       }

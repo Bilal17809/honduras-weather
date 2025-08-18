@@ -21,7 +21,7 @@ class BannerAdManager extends GetxController {
 
   String get _adUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return 'ca-app-pub-8172082069591999/8184754883';
     } else if (Platform.isIOS) {
       return '';
     } else {

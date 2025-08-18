@@ -23,9 +23,9 @@ if (localPropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.unisoftaps.honduras_weather"
+    namespace = "com.unisoftaps.hondurasweatherforecast"
     compileSdk = 36
-    ndkVersion = "28.0.12916984"
+    ndkVersion = "28.2.13676358"
 
     signingConfigs {
         create("release") {
@@ -37,9 +37,8 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.unisoftaps.honduras_weather"
+        applicationId = "com.unisoftaps.hondurasweatherforecast"
 
-        // ✅ Read minSdkVersion from local.properties
         minSdk = localProperties["flutter.minSdkVersion"].toString().toInt()
 
         targetSdk = 36

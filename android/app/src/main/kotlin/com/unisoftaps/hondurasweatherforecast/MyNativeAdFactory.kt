@@ -1,4 +1,4 @@
-package com.unisoftaps.honduras_weather
+package com.unisoftaps.hondurasweatherforecast
 
 import android.content.Context
 import android.view.LayoutInflater
