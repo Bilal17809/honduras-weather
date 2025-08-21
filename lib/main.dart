@@ -1,17 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:honduras_weather/presentation/splash/view/splash_view.dart';
 import '/core/binders/dependency_injection.dart';
 import '/core/local_storage/local_storage.dart';
-import '/presentation/home/view/home_view.dart';
+import 'ad_manager/app_open_ads.dart';
+import 'core/services/services.dart';
 import 'core/theme/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await MobileAds.instance.initialize();
+  await Firebase.initializeApp();
+  await AqiService.initialize();
+  Get.put(AppOpenAdManager());
   DependencyInjection.init();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  OnesignalService.init();
   final storage = LocalStorage();
   final isDark = await storage.getBool('isDarkMode');
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     HondurasWeather(
       themeMode: isDark == true
@@ -35,7 +44,7 @@ class HondurasWeather extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-      home: const HomeView(),
+      home: const SplashView(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import '../../data/models/forecast_model.dart';
-import '../../data/models/weather_model.dart';
+import '/data/models/forecast_model.dart';
+import '/data/models/weather_model.dart';
 import '../repo/weather_repo.dart';
 import '/core/common/app_exceptions.dart';
 import '/core/local_storage/local_storage.dart';
@@ -19,7 +19,7 @@ class GetWeatherAndForecast {
     return weatherRepo.getWeatherAndForecast(lat, lon);
   }
 
-  Future<String> getCity() async {
+  Future<(String city, String region)> getCity() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       throw Exception(AppExceptions().deniedPermission);
@@ -47,6 +47,11 @@ class GetWeatherAndForecast {
 
     await storage.setString('latitude', position.latitude.toString());
     await storage.setString('longitude', position.longitude.toString());
-    return weatherRepo.getCity(position.latitude, position.longitude);
+
+    final data = await weatherRepo.getCityAndRegion(
+      position.latitude,
+      position.longitude,
+    );
+    return data;
   }
 }

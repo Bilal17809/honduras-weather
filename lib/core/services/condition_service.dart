@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import '../../data/models/forecast_model.dart';
-import '../../data/models/weather_model.dart';
-import '../../presentation/home/controller/home_controller.dart';
 import '/core/platform_channels/android_widget_channel.dart';
+import '/data/models/weather_model.dart';
+import '/data/models/forecast_model.dart';
+import '/presentation/home/controller/home_controller.dart';
 import 'date_time_service.dart';
 
 class ConditionService extends GetxController {
@@ -22,10 +22,10 @@ class ConditionService extends GetxController {
         ? weatherList[mainIndex]
         : null;
     mainCityWeather.value = newWeather;
-    // final currentCity = Get.find<HomeController>().currentLocationCity;
-    // if (currentCity != null && currentCity.city == cityName) {
-    //   currentLocationWeather.value = newWeather;
-    // }
+    final currentCity = Get.find<HomeController>().currentLocationCity;
+    if (currentCity != null && currentCity.city == cityName) {
+      currentLocationWeather.value = newWeather;
+    }
     if (mainCityWeather.value != null) {
       WidgetUpdateManager.updateWeatherWidget();
     }

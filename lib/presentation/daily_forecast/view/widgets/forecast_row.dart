@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import '/core/theme/theme.dart';
 
 class ForecastRow extends StatelessWidget {
@@ -30,7 +30,12 @@ class ForecastRow extends StatelessWidget {
         children: [
           SizedBox(
             width: mobileWidth(context) * 0.15,
-            child: Text(day, style: bodyMediumStyle(context)),
+            child: Text(
+              day,
+              style: bodyMediumStyle(
+                context,
+              ).copyWith(color: secondaryText(context)),
+            ),
           ),
           iconUrl.isNotEmpty
               ? Image.network(
@@ -41,14 +46,16 @@ class ForecastRow extends StatelessWidget {
                   errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.wb_sunny,
                     size: mediumIcon(context),
-                    color: kWhite,
+                    color: getPrimaryColor(context),
                   ),
                 )
               : Icon(Icons.wb_sunny, size: mediumIcon(context)),
           Spacer(),
           Text(
             '$maxTemp°/$minTemp°',
-            style: bodyMediumStyle(context),
+            style: bodyMediumStyle(
+              context,
+            ).copyWith(color: secondaryText(context)),
             textAlign: TextAlign.center,
           ),
           SizedBox(width: mobileWidth(context) * 0.08),
@@ -56,7 +63,9 @@ class ForecastRow extends StatelessWidget {
             flex: 2,
             child: Text(
               condition,
-              style: bodyMediumStyle(context),
+              style: bodyMediumStyle(
+                context,
+              ).copyWith(color: secondaryText(context)),
               textAlign: TextAlign.start,
               maxLines: 2,
               softWrap: true,

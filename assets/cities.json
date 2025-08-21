@@ -1,0 +1,122 @@
+[
+  {
+    "city": "Tegucigalpa",
+    "cityAscii": "Tegucigalpa",
+    "latitude": 14.0723,
+    "longitude": -87.1921
+  },
+  {
+    "city": "San Pedro Sula",
+    "cityAscii": "San Pedro Sula",
+    "latitude": 15.5042,
+    "longitude": -88.025
+  },
+  {
+    "city": "La Ceiba",
+    "cityAscii": "La Ceiba",
+    "latitude": 15.77,
+    "longitude": -86.7919
+  },
+  {
+    "city": "Choloma",
+    "cityAscii": "Choloma",
+    "latitude": 15.6333,
+    "longitude": -87.95
+  },
+  {
+    "city": "El Progreso",
+    "cityAscii": "El Progreso",
+    "latitude": 15.4,
+    "longitude": -87.8
+  },
+  {
+    "city": "Comayagua",
+    "cityAscii": "Comayagua",
+    "latitude": 14.4514,
+    "longitude": -87.6375
+  },
+  {
+    "city": "Puerto Cortés",
+    "cityAscii": "Puerto Cortes",
+    "latitude": 15.8356,
+    "longitude": -87.9372
+  },
+  {
+    "city": "Danlí",
+    "cityAscii": "Danli",
+    "latitude": 14.0333,
+    "longitude": -86.5833
+  },
+  {
+    "city": "Juticalpa",
+    "cityAscii": "Juticalpa",
+    "latitude": 14.6667,
+    "longitude": -86.2192
+  },
+  {
+    "city": "Tela",
+    "cityAscii": "Tela",
+    "latitude": 15.7833,
+    "longitude": -87.4667
+  },
+  {
+    "city": "Santa Rosa de Copán",
+    "cityAscii": "Santa Rosa de Copan",
+    "latitude": 14.7667,
+    "longitude": -88.7833
+  },
+  {
+    "city": "Yoro",
+    "cityAscii": "Yoro",
+    "latitude": 15.1333,
+    "longitude": -87.1333
+  },
+  {
+    "city": "Gracias",
+    "cityAscii": "Gracias",
+    "latitude": 14.5833,
+    "longitude": -88.5833
+  },
+  {
+    "city": "Tocoa",
+    "cityAscii": "Tocoa",
+    "latitude": 15.6833,
+    "longitude": -86.0
+  },
+  {
+    "city": "La Paz",
+    "cityAscii": "La Paz",
+    "latitude": 14.3167,
+    "longitude": -87.6833
+  },
+  {
+    "city": "Nacaome",
+    "cityAscii": "Nacaome",
+    "latitude": 13.5333,
+    "longitude": -87.4833
+  },
+  {
+    "city": "La Esperanza",
+    "cityAscii": "La Esperanza",
+    "latitude": 14.3167,
+    "longitude": -88.1833
+  },
+  {
+    "city": "Santa Bárbara",
+    "cityAscii": "Santa Barbara",
+    "latitude": 14.9194,
+    "longitude": -88.2361
+  },
+  {
+    "city": "Catacamas",
+    "cityAscii": "Catacamas",
+    "latitude": 14.9,
+    "longitude": -85.9
+  },
+  {
+    "city": "Ocotepeque",
+    "cityAscii": "Ocotepeque",
+    "latitude": 14.4333,
+    "longitude": -89.1833
+  }
+]

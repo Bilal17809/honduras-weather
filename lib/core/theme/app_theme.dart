@@ -5,7 +5,7 @@ class AppTheme {
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: primaryColorLight,
-    scaffoldBackgroundColor: lightBgColor,
+    scaffoldBackgroundColor: kBlack,
     colorScheme: ColorScheme.light(
       primary: primaryColorLight,
       secondary: secondaryColorLight,
@@ -20,7 +20,7 @@ class AppTheme {
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: primaryColorDark,
-    scaffoldBackgroundColor: darkBgColor,
+    scaffoldBackgroundColor: kBlack,
     colorScheme: ColorScheme.dark(
       primary: primaryColorDark,
       secondary: secondaryColorDark,
@@ -39,9 +39,7 @@ BoxDecoration roundedDecor(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.circular(24),
   boxShadow: [
     BoxShadow(
-      color: isDarkMode(context)
-          ? darkBgColor.withValues(alpha: 0.3)
-          : getPrimaryColor(context).withValues(alpha: 0.3),
+      color: kBlack.withValues(alpha: 0.3),
       blurRadius: 6,
       spreadRadius: 1,
       offset: Offset(0, 2),
@@ -54,9 +52,7 @@ BoxDecoration roundedInnerDecor(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.circular(24),
   boxShadow: [
     BoxShadow(
-      color: isDarkMode(context)
-          ? darkBgColor.withValues(alpha: 0.3)
-          : kBlack.withValues(alpha: 0.1),
+      color: kBlack.withValues(alpha: 0.3),
       blurRadius: 6,
       spreadRadius: 1,
       offset: Offset(0, 2),
@@ -65,77 +61,32 @@ BoxDecoration roundedInnerDecor(BuildContext context) => BoxDecoration(
 );
 
 BoxDecoration roundedForecastDecor(BuildContext context) => BoxDecoration(
-  color: isDarkMode(context) ? secondaryColorLight : kWhite,
+  color: context.isDark
+      ? secondaryColorLight.withValues(alpha: 0.9)
+      : kWhite.withValues(alpha: 0.9),
   borderRadius: BorderRadius.only(
     topRight: Radius.circular(100),
     topLeft: Radius.circular(100),
   ),
 );
 
-// BoxDecoration roundedStylizedDecor(BuildContext context) => BoxDecoration(
-//   color: getSecondaryColor(context),
-//   borderRadius: BorderRadius.only(
-//     topRight: Radius.circular(24),
-//     bottomLeft: Radius.circular(24),
-//   ),
-//   boxShadow: [
-//     BoxShadow(
-//       color: isDarkMode(context)
-//           ? darkBgColor.withValues(alpha: 0.3)
-//           : secondaryColorLight.withValues(alpha: 0.3),
-//       blurRadius: 6,
-//       spreadRadius: 1,
-//       offset: Offset(0, 2),
-//     ),
-//   ],
-// );
-
-// BoxDecoration roundedBottomDecor(BuildContext context) => BoxDecoration(
-//   gradient: LinearGradient(
-//     begin: Alignment.topLeft,
-//     end: Alignment.bottomCenter,
-//     colors: isDarkMode(context)
-//         ? [kWhite.withValues(alpha: 0.1), kWhite.withValues(alpha: 0.2)]
-//         : [getPrimaryColor(context), getSecondaryColor(context)],
-//     stops: [0.15, 1.0],
-//   ),
-//   borderRadius: const BorderRadius.only(
-//     bottomLeft: Radius.circular(50),
-//     bottomRight: Radius.circular(50),
-//   ),
-//   boxShadow: [
-//     BoxShadow(
-//       color: isDarkMode(context)
-//           ? darkBgColor.withValues(alpha: 0.3)
-//           : primaryColorLight.withValues(alpha: 0.15),
-//       blurRadius: 6,
-//       spreadRadius: 1,
-//       offset: Offset(0, 1),
-//     ),
-//   ],
-// );
-
 BoxDecoration roundedSelectionDecoration(
   BuildContext context, {
   required bool isSelected,
 }) {
-  final isDark = isDarkMode(context);
+  final isDark = context.isDark;
 
   return BoxDecoration(
     color: isDark
         ? (isSelected
-              ? kWhite.withValues(alpha: 0.5)
+              ? kWhite.withValues(alpha: 0.6)
               : kWhite.withValues(alpha: 0.25))
-        : (isSelected
-              ? secondaryColorLight.withValues(alpha: 0.6)
-              : unselectedColor),
-    // gradient: isDark ? null : (isSelected ? kSelectedGradient(context) : null),
-    borderRadius: BorderRadius.circular(35),
+        : (isSelected ? null : unselectedColor),
+    gradient: isDark ? null : (isSelected ? kSelectedGradient(context) : null),
+    borderRadius: BorderRadius.circular(24),
     boxShadow: [
       BoxShadow(
-        color: isDark
-            ? darkBgColor.withValues(alpha: 0.3)
-            : primaryColorLight.withValues(alpha: 0.3),
+        color: kBlack.withValues(alpha: 0.3),
         blurRadius: 6,
         spreadRadius: 1,
         offset: Offset(0, 2),
@@ -145,35 +96,35 @@ BoxDecoration roundedSelectionDecoration(
 }
 
 Color getPrimaryColor(BuildContext context) =>
-    isDarkMode(context) ? primaryColorDark : primaryColorLight;
+    context.isDark ? primaryColorDark : primaryColorLight;
 
-Color getSecondaryColor(BuildContext context) => isDarkMode(context)
+Color getSecondaryColor(BuildContext context) => context.isDark
     ? secondaryColorDark.withValues(alpha: 0.1)
     : secondaryColorLight;
 
-Color getBgColor(BuildContext context) =>
-    isDarkMode(context) ? darkBgColor : lightBgColor;
+Color getSearchBgColor(BuildContext context) => context.isDark
+    ? secondaryColorDark.withValues(alpha: 0.1)
+    : primaryColorLight;
 
-// Color primaryText(BuildContext context) =>
-//     isDarkMode(context) ? textWhiteColor : textBlackColor;
+Color getBgColor(BuildContext context) =>
+    context.isDark ? darkBgColor : lightBgColor;
+
+Color secondaryText(BuildContext context) =>
+    context.isDark ? textWhiteColor : textBlackColor;
 
 Color primaryText(BuildContext context) =>
-    isDarkMode(context) ? textWhiteColor : textWhiteColor;
+    context.isDark ? textWhiteColor : textWhiteColor;
 
 Color coloredText(BuildContext context) =>
-    isDarkMode(context) ? textWhiteColor : textPrimaryColor;
-//
-// Color coloredText2(BuildContext context) =>
-//     isDarkMode(context) ? textWhiteColor : textSecondaryColor;
+    context.isDark ? textWhiteColor : textPrimaryColor;
 
-Color getIconColor(BuildContext context) =>
-    isDarkMode(context) ? kWhite : kWhite;
+Color getIconColor(BuildContext context) => context.isDark ? kWhite : kWhite;
 
 LinearGradient kGradient(BuildContext context) {
   return LinearGradient(
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
-    colors: isDarkMode(context)
+    colors: context.isDark
         ? [kWhite.withValues(alpha: 0.08), kWhite.withValues(alpha: 0.06)]
         : [primaryColorLight, secondaryColorLight],
     stops: [0.3, 0.95],
@@ -184,10 +135,10 @@ LinearGradient kContainerGradient(BuildContext context) {
   return LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: isDarkMode(context)
+    colors: context.isDark
         ? [kWhite.withValues(alpha: 0.4), kWhite.withValues(alpha: 0.2)]
-        : [primaryColorLight, secondaryColorLight.withValues(alpha: 0.6)],
-    stops: [0.05, 0.75],
+        : [primaryColorLight, secondaryColorLight],
+    stops: [0, 0.95],
   );
 }
 
@@ -195,9 +146,9 @@ LinearGradient kSelectedGradient(BuildContext context) {
   return LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: isDarkMode(context)
-        ? [kWhite.withValues(alpha: 0.08), kWhite.withValues(alpha: 0.06)]
+    colors: context.isDark
+        ? [kWhite.withValues(alpha: 0.04), kWhite.withValues(alpha: 0.05)]
         : [selectedLightColor, selectedDarkColor],
-    stops: [0.05, 0.5],
+    stops: [0, 0.9],
   );
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import '../../presentation/splash/controller/splash_controller.dart';
+import '/presentation/splash/controller/splash_controller.dart';
 import '../models/forecast_model.dart';
 import '../models/weather_model.dart';
 import '/core/common/app_exceptions.dart';
@@ -23,8 +23,8 @@ class OnlineDataSource {
       final data = jsonDecode(response.body);
       final splashController = Get.find<SplashController>();
       final latLonKey = '${lat.toStringAsFixed(4)},${lon.toStringAsFixed(4)}';
-      // splashController.cacheCityData(latLonKey, data);
-      // splashController.rawForecastData.value = data;
+      splashController.cacheCityData(latLonKey, data);
+      splashController.rawForecastData.value = data;
       final current = WeatherModel.fromJson(data);
       final forecastDays = data['forecast']['forecastday'] as List;
       final forecast = forecastDays
@@ -39,7 +39,10 @@ class OnlineDataSource {
   }
 
   /// For Current Location
-  Future<String> getCity(double lat, double lon) async {
+  Future<(String city, String region)> getCityAndRegion(
+    double lat,
+    double lon,
+  ) async {
     final uri = Uri.parse(
       '${EnvironmentConfig.baseUrl}?key=$apiKey&q=$lat,$lon',
     );
@@ -47,10 +50,11 @@ class OnlineDataSource {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      final cityName = data['location']['name'] as String?;
+      final city = data['location']['name'] as String?;
+      final region = data['location']['region'] as String?;
 
-      if (cityName != null) {
-        return cityName;
+      if (city != null && region != null) {
+        return (city, region);
       } else {
         throw Exception(AppExceptions().noCityInApi);
       }

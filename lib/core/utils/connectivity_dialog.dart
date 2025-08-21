@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../services/services.dart';
-import '../constants/constant.dart';
+import '../constants/constants.dart';
 import '/core/theme/theme.dart';
 
 class ConnectivityUtil {
@@ -28,7 +29,7 @@ class ConnectivityUtil {
                     isConnected.value ? Icons.wifi : Icons.wifi_off,
                     color: isConnected.value ? kGreen : kRed,
                   ),
-                  const SizedBox(width: kElementWidthGap),
+                  const Gap(kGap),
                   Text(
                     isConnected.value ? "Connected" : "Disconnected",
                     style: TextStyle(

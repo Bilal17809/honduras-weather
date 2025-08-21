@@ -1,4 +1,4 @@
-import '../../domain/repo/weather_repo.dart';
+import '/domain/repo/weather_repo.dart';
 import '../data_source/online_data_sr.dart';
 import '../models/forecast_model.dart';
 import '../models/weather_model.dart';
@@ -18,7 +18,7 @@ class WeatherApiImpl implements WeatherRepo {
 
   /// For Current Location
   @override
-  Future<String> getCity(double lat, double lon) async {
-    return await onlineDataSource.getCity(lat, lon);
+  Future<(String, String)> getCityAndRegion(double lat, double lon) {
+    return onlineDataSource.getCityAndRegion(lat, lon);
   }
 }

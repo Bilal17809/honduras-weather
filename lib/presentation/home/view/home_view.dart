@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import '/presentation/app_drawer/app_drawer.dart';
+import '/core/animation/view/animated_bg_builder.dart';
 import '/core/global_keys/global_key.dart';
-import '/core/common_widgets/common_widgets.dart';
-import '/presentation/home/controller/home_controller.dart';
-import '/presentation/home/view/widgets/home_body.dart';
+import '../controller/home_controller.dart';
+import 'widgets/home_body.dart';
 import '/core/utils/home_dialog.dart';
 
 class HomeView extends StatelessWidget {
@@ -13,7 +14,6 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, value) async {
@@ -22,19 +22,16 @@ class HomeView extends StatelessWidget {
         if (shouldExit == true) SystemNavigator.pop();
       },
       child: Scaffold(
-        key: globalKey,
+        key: globalDrawerKey,
         drawer: const AppDrawer(),
         onDrawerChanged: (isOpen) {
           homeController.isDrawerOpen.value = isOpen;
         },
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/bg.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: const SafeArea(child: HomeBody()),
+        body: Stack(
+          children: [
+            AnimatedBgImageBuilder(),
+            const SafeArea(child: HomeBody()),
+          ],
         ),
       ),
     );

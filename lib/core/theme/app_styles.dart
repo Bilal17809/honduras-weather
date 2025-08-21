@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/core/constants/constant.dart';
+import '/core/constants/constants.dart';
 import 'theme.dart';
 
 TextStyle headlineLargeStyle(BuildContext context) => TextStyle(
@@ -21,13 +21,13 @@ TextStyle headlineSmallStyle(BuildContext context) => TextStyle(
   color: primaryText(context),
 );
 
-TextStyle titleBoldMediumStyle(BuildContext context) => TextStyle(
+TextStyle titleMediumStyle(BuildContext context) => TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
   color: primaryText(context),
 );
 
-TextStyle titleBoldLargeStyle(BuildContext context) => TextStyle(
+TextStyle titleLargeStyle(BuildContext context) => TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
   color: getSecondaryColor(context),
