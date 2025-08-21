@@ -73,13 +73,14 @@ class HomeBody extends StatelessWidget {
               ],
             ),
           ),
-          if (!homeController.isDrawerOpen.value) ...[
-            Obx(() {
-              final nativeAdManager = Get.find<NativeAdManager>();
-              return nativeAdManager.isAdLoaded.value
-                  ? nativeAdManager.showNativeAd()
-                  : const NativeAdShimmer();
-            }),
+          if (!homeController.isDrawerOpen.value && !Get.find<AppOpenAdManager>().isAdVisible.value) ...[
+            NativeAdWidget(),
+            // Obx(() {
+            //   final nativeAdManager = Get.find<NativeAdManager>();
+            //   return nativeAdManager.isAdLoaded.value
+            //       ? nativeAdManager.showNativeAd()
+            //       : const NativeAdShimmer();
+            // }),
             const Gap(kGap),
           ],
           Padding(

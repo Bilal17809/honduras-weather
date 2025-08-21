@@ -14,7 +14,7 @@ import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 final bool _kAutoConsume = Platform.isIOS || true;
 const String _kConsumableId = 'consumable';
 const String _kUpgradeId = 'upgrade';
-const String _kSilverSubscriptionId = '';
+const String _kSilverSubscriptionId = 'com.hondurasweather.removeads';
 const List<String> _kProductIds = <String>[
   _kConsumableId,
   _kUpgradeId,
