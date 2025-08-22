@@ -105,11 +105,14 @@ class CityCard extends StatelessWidget {
                 ],
               ),
               const Gap(kGap),
-              Text(
-                airQuality,
-                style: bodyMediumStyle(context).copyWith(color: kWhite),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              Flexible(
+                child: Text(
+                  airQuality,
+                  style: bodyMediumStyle(context).copyWith(color: kWhite),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                ),
               ),
             ],
           ),
