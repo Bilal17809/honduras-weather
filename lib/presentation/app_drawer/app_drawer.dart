@@ -71,7 +71,7 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             Divider(color: primaryColorLight.withValues(alpha: 0.1)),
-            if (Platform.isIOS) ...[
+            if(Platform.isIOS)
               DrawerTile(
                 icon: Icons.star_rounded,
                 title: 'Remove Ads',
@@ -80,7 +80,6 @@ class AppDrawer extends StatelessWidget {
                 },
               ),
               Divider(color: primaryColorLight.withValues(alpha: 0.1)),
-            ],
             ListTile(
               leading: Icon(
                 Icons.dark_mode_rounded,

@@ -23,7 +23,6 @@ class CitiesController extends GetxController with ConnectivityMixin {
   void onReady() {
     super.onReady();
     Get.find<InterstitialAdManager>().checkAndDisplayAd();
-    Get.find<BannerAdManager>().loadBannerAd('ad1');
     _syncSplash();
   }
 

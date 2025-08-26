@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:honduras_weather/ad_manager/ad_manager.dart';
@@ -32,11 +34,11 @@ class HomeController extends GetxController with ConnectivityMixin {
   @override
   void onInit() {
     super.onInit();
+    requestTrackingPermission();
     _safeInit();
     WidgetUpdaterService.setupMethodChannelHandler();
     WidgetUpdateManager.startPeriodicUpdate();
     Get.find<InterstitialAdManager>().checkAndDisplayAd();
-    Get.find<BannerAdManager>().loadBannerAd('ad1');
   }
 
   Future<void> _safeInit() async {
@@ -103,4 +105,30 @@ class HomeController extends GetxController with ConnectivityMixin {
   CityModel? get currentLocationCity => splashController.currentCity;
   String get selectedCityName =>
       selectedCity.value?.city ?? splashController.selectedCityName;
+
+  Future<void> requestTrackingPermission() async {
+    if (!Platform.isIOS) {
+      return;
+    }
+    final trackingStatus =
+    await AppTrackingTransparency.requestTrackingAuthorization();
+
+    switch (trackingStatus) {
+      case TrackingStatus.notDetermined:
+        debugPrint('User has not yet decided');
+        break;
+      case TrackingStatus.denied:
+        debugPrint('User denied tracking');
+        break;
+      case TrackingStatus.authorized:
+        debugPrint('User granted tracking permission');
+        break;
+      case TrackingStatus.restricted:
+        debugPrint('Tracking restricted');
+        break;
+      default:
+        debugPrint('Unknown tracking status');
+    }
+  }
+
 }

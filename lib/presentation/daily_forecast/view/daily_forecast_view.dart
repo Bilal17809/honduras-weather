@@ -99,7 +99,14 @@ class DailyForecastView extends StatelessWidget {
             ),
           ),
         ],
+
       ),
+      bottomNavigationBar: Obx(() {
+        final interstitial = Get.find<InterstitialAdManager>();
+        return interstitial.isShow.value
+            ? const SizedBox()
+            :  BannerAdWidget();
+      }),
     );
   }
 }

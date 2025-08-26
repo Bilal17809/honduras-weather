@@ -10,13 +10,24 @@ import '/core/theme/theme.dart';
 import '/core/common_widgets/common_widgets.dart';
 import '/core/constants/constants.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  final controller = Get.find<SplashController>();
+  final ad = Get.find<SplashInterstitialManager>();
+  @override
+  void initState() {
+    ad.loadAd();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SplashController>();
-    final ad = Get.find<SplashInterstitialManager>();
     return Scaffold(
       body: Obx(
         () => Stack(
@@ -130,10 +141,11 @@ class SplashView extends StatelessWidget {
                                       shadowColor: kBlue,
                                       textColor: textWhiteColor,
                                       onPressed: () async {
-                                        if (!ad.isShowing.value) {
-                                          ad.showSplashAd(() {});
+                                        if(ad.isAdReady){
+                                          ad.showSplashAd((){});
                                           Get.off(() => HomeView());
-                                        } else {
+                                        }
+                                        else {
                                           Get.off(() => HomeView());
                                         }
                                       },

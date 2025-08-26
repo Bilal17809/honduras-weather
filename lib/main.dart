@@ -15,9 +15,13 @@ void main() async {
   await Firebase.initializeApp();
   MobileAds.instance.initialize();
   await AqiService.initialize();
-  Get.put(AppOpenAdManager());
-  Get.put(RemoveAds());
   DependencyInjection.init();
+  Get.put(AppOpenAdManager());
+  // Get.put(NativeAdController());
+  // Get.put(BannerAdWidget());
+  // Get.put(SplashInterstitialManager());
+  // Get.put(InterstitialAdManager());
+  Get.put(RemoveAds());
   OnesignalService.init();
   final storage = LocalStorage();
   final isDark = await storage.getBool('isDarkMode');

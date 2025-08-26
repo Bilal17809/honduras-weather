@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:honduras_weather/ad_manager/remove_ads.dart';
 import '/core/services/services.dart';
 
 class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
@@ -11,6 +12,8 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
   bool _canDisplayAd = false;
   bool _resumeEligible = false;
   bool _interstitialAdDismissed = false;
+  final removeAds = Get.find<RemoveAds>();
+
 
   @override
   void onInit() {
@@ -54,6 +57,9 @@ class AppOpenAdManager extends GetxController with WidgetsBindingObserver {
   }
 
   void _displayAdIfAvailable() {
+    if(removeAds.isSubscribedGet.value){
+       SizedBox();
+    }
     if (_canDisplayAd && _currentAd != null) {
       _currentAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdShowedFullScreenContent: (_) {

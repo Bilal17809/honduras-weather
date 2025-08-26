@@ -3,10 +3,13 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:honduras_weather/ad_manager/remove_ads.dart';
+
+import 'app_open_ads.dart';
 
 class SplashInterstitialManager extends GetxController {
   InterstitialAd? _splashAd;
-  bool _isAdReady = false;
+  bool isAdReady = false;
   var isShowing = false.obs;
   bool displaySplashAd = true;
 
@@ -14,7 +17,7 @@ class SplashInterstitialManager extends GetxController {
   void onInit() {
     super.onInit();
     _initRemoteConfig();
-    _loadAd();
+    loadAd();
   }
 
   @override
@@ -53,7 +56,7 @@ class SplashInterstitialManager extends GetxController {
       await remoteConfig.fetchAndActivate();
       displaySplashAd = remoteConfig.getBool(interstitialKey);
       debugPrint("Splash Interstitial Ad Enabled: $showSplashAd");
-      _loadAd();
+      loadAd();
       update();
     } catch (e) {
       debugPrint('Error fetching Remote Config: $e');
@@ -61,35 +64,35 @@ class SplashInterstitialManager extends GetxController {
     }
   }
 
-  void _loadAd() {
+  void loadAd() {
     InterstitialAd.load(
       adUnitId: _adUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           _splashAd = ad;
-          _isAdReady = true;
+          isAdReady = true;
           update();
         },
         onAdFailedToLoad: (error) {
-          _isAdReady = false;
+          isAdReady = false;
           debugPrint("Splash Interstitial load error: $error");
         },
       ),
     );
   }
-
+  final removeAds = Get.find<RemoveAds>();
   void showSplashAd(VoidCallback onAdClosed) {
-    if (_splashAd == null || !_isAdReady) {
+    if (!isAdReady || removeAds.isSubscribedGet.value) {
       debugPrint("Splash Interstitial not ready.");
       onAdClosed();
       return;
     }
-
     isShowing.value = true;
 
     _splashAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
+        Get.find<AppOpenAdManager>().setInterstitialAdDismissed();
         ad.dispose();
         isShowing.value = false;
         _resetAfterAd();
@@ -97,6 +100,7 @@ class SplashInterstitialManager extends GetxController {
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
         debugPrint("Splash Interstitial failed: $error");
+        Get.find<AppOpenAdManager>().setInterstitialAdDismissed();
         ad.dispose();
         isShowing.value = false;
         _resetAfterAd();
@@ -106,12 +110,12 @@ class SplashInterstitialManager extends GetxController {
 
     _splashAd!.show();
     _splashAd = null;
-    _isAdReady = false;
+    isAdReady = false;
   }
 
   void _resetAfterAd() {
-    _isAdReady = false;
-    _loadAd();
+    isAdReady = false;
+    loadAd();
     update();
   }
 }

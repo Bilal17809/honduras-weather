@@ -74,8 +74,8 @@ class DependencyInjection {
       fenix: true,
     );
     Get.lazyPut<CitiesController>(() => CitiesController(), fenix: true);
-
-    /// Ads
+    //
+    // /// Ads
     Get.lazyPut<SplashInterstitialManager>(
       () => SplashInterstitialManager(),
       fenix: true,
@@ -84,7 +84,7 @@ class DependencyInjection {
       () => InterstitialAdManager(),
       fenix: true,
     );
-    Get.lazyPut<BannerAdManager>(() => BannerAdManager(), fenix: true);
+    Get.lazyPut<RemoveAds>(() => RemoveAds(), fenix: true);
     Get.lazyPut<NativeAdController>(() => NativeAdController(), fenix: true);
   }
 }

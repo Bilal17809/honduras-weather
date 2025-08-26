@@ -5,9 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:honduras_weather/ad_manager/remove_ads.dart';
 import 'package:shimmer/shimmer.dart';
-import '../core/constants/constants.dart';
-import '../core/services/services.dart';
-import '../core/theme/theme.dart';
 
 class NativeAdController extends GetxController {
   NativeAd? _nativeAd;
@@ -99,7 +96,7 @@ class NativeAdWidget extends StatefulWidget {
 class _NativeAdWidgetState extends State<NativeAdWidget> {
   late final NativeAdController _adController;
   late final String _tag;
-  final RemoveAds removeAds = Get.find<RemoveAds>();
+  final removeAds = Get.find<RemoveAds>();
 
   @override
   void initState() {
@@ -165,7 +162,7 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS && removeAds.isSubscribedGet.value) {
+    if (removeAds.isSubscribedGet.value) {
       return const SizedBox();
     }
 

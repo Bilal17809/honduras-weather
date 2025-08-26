@@ -11,6 +11,8 @@ class InterstitialAdManager extends GetxController {
   var isShow = false.obs;
   int visitCounter = 0;
   late int displayThreshold;
+  final removeAds = Get.find<RemoveAds>();
+
 
   @override
   void onInit() {
@@ -73,10 +75,14 @@ class InterstitialAdManager extends GetxController {
   }
 
   void _showAd() {
+    if(removeAds.isSubscribedGet.value){
+      SizedBox();
+    }
     if (_currentAd == null) return;
     isShow.value = true;
     _currentAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
+        Get.find<AppOpenAdManager>().setInterstitialAdDismissed();
         ad.dispose();
         isShow.value = false;
         _resetAfterAd();

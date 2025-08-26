@@ -76,7 +76,7 @@ class PremiumBody extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: height * 0.03),
+                            SizedBox(height: height * 0.04),
                             SizedBox(
                               height: isSmallScreen ? 100 : height * 0.16,
                               child: ListView.builder(
@@ -127,7 +127,7 @@ class PremiumBody extends StatelessWidget {
                                 },
                               ),
                             ),
-                            SizedBox(height: height * 0.04),
+                            SizedBox(height: height * 0.05),
                             productListBuilder,
                             Column(
                               children: [
@@ -188,7 +188,7 @@ class PremiumBody extends StatelessWidget {
                       "Forecast Without Limits",
                       style: TextStyle(
                         color: Colors.blue,
-                        fontSize: 28,
+                        fontSize:25,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
@@ -221,7 +221,7 @@ class PremiumBody extends StatelessWidget {
                   Positioned(
                     left: width * 0.65,
                     right: width * 0.01,
-                    top: height * 0.67,
+                    top: height * 0.70,
                     child: Image.asset(
                       "images/offer.png",
                       height: 64,
