@@ -69,8 +69,7 @@ class _CitiesGrid extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: kGap),
           child: Column(
             children: [
-              if (!Get.find<InterstitialAdManager>().isShow.value  &&
-                  !Get.find<AppOpenAdManager>().isAdVisible.value) ...[
+              if (!Get.find<InterstitialAdManager>().isShow.value) ...[
                 NativeAdWidget(),
                 const Gap(kGap),
               ],

@@ -73,7 +73,7 @@ class HomeBody extends StatelessWidget {
               ],
             ),
           ),
-          if (!homeController.isDrawerOpen.value && !Get.find<AppOpenAdManager>().isAdVisible.value) ...[
+          if (!homeController.isDrawerOpen.value) ...[
             NativeAdWidget(),
             // Obx(() {
             //   final nativeAdManager = Get.find<NativeAdManager>();

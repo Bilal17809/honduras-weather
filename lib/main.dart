@@ -14,13 +14,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   MobileAds.instance.initialize();
-  await AqiService.initialize();
+  RemoteConfigService().init();
   DependencyInjection.init();
   Get.put(AppOpenAdManager());
-  // Get.put(NativeAdController());
-  // Get.put(BannerAdWidget());
-  // Get.put(SplashInterstitialManager());
-  // Get.put(InterstitialAdManager());
   Get.put(RemoveAds());
   OnesignalService.init();
   final storage = LocalStorage();

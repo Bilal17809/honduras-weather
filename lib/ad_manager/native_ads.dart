@@ -6,6 +6,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:honduras_weather/ad_manager/remove_ads.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'app_open_ads.dart';
+
 class NativeAdController extends GetxController {
   NativeAd? _nativeAd;
   final RxBool isAdReady = false.obs;
@@ -162,34 +164,32 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (removeAds.isSubscribedGet.value) {
-      return const SizedBox();
-    }
-
+    final appOpenAdController = Get.find<AppOpenAdManager>();
     final screenHeight = MediaQuery.of(context).size.height;
     final adHeight = widget.templateType == TemplateType.medium
         ? screenHeight * 0.48
         : screenHeight * 0.14;
-
-    return Obx(() {
-      if (_adController.isAdReady.value && _adController._nativeAd != null) {
-        return Container(
-          height: adHeight,
-          margin: const EdgeInsets.symmetric(vertical:5,horizontal:5),
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: AdWidget(ad: _adController._nativeAd!),
-        );
-      } else {
-        return shimmerWidget(adHeight);
+    return Obx((){
+      if (removeAds.isSubscribedGet.value
+          || appOpenAdController.isAdVisible.value) {
+        return const SizedBox();
       }
+      return _adController.isAdReady.value && _adController._nativeAd != null
+          ? Container(
+        height: adHeight,
+        margin: const EdgeInsets.symmetric(vertical:5,horizontal:5),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius:3,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: AdWidget(ad: _adController._nativeAd!),
+      )
+          :shimmerWidget(adHeight);
     });
   }
 }
