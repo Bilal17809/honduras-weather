@@ -15,6 +15,7 @@ void main() async {
   await Firebase.initializeApp();
   MobileAds.instance.initialize();
   RemoteConfigService().init();
+  await AqiService.initialize();
   DependencyInjection.init();
   Get.put(AppOpenAdManager());
   Get.put(RemoveAds());
