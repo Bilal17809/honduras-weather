@@ -96,7 +96,9 @@ class SplashController extends GetxController with ConnectivityMixin {
       isLoading.value = true;
       isDataLoaded.value = false;
       allCities.value = await cityService.loadAllCities();
-      await _checkFirstLaunch();
+      final savedCityJson = await localStorage.getString('selected_city');
+      final hasCurrentLocation = await localStorage.getBool('has_current_location') ?? false;
+      isFirstLaunch.value = savedCityJson == null  || !hasCurrentLocation || !hasCurrentLocation && savedCityJson.isEmpty;
       currentLocationCity.value = await currentLocationService
           .getCurrentLocationCity(allCities);
       if (isFirstLaunch.value) {
@@ -113,6 +115,7 @@ class SplashController extends GetxController with ConnectivityMixin {
         selectedCity: selectedCity.value,
         currentLocationCity: currentLocationCity.value,
       );
+      // await _checkFirstLaunch();
       _updateRawForecastDataForCurrentCity();
       isDataLoaded.value = true;
       Get.find<HomeController>().isWeatherDataLoaded.value = true;
@@ -125,22 +128,25 @@ class SplashController extends GetxController with ConnectivityMixin {
     }
   }
 
-  Future<void> _checkFirstLaunch() async {
-    try {
-      final savedCityJson = await localStorage.getString('selected_city');
-      final hasCurrentLocation =
-          await localStorage.getBool('has_current_location') ?? false;
-      isFirstLaunch.value = savedCityJson == null || !hasCurrentLocation;
-    } catch (e) {
-      debugPrint('${AppExceptions().firstLaunch}: $e');
-      isFirstLaunch.value = true;
-    }
-  }
+
+  // Future<void> _checkFirstLaunch() async {
+  //   try {
+  //
+  //     final savedCityJson = await localStorage.getString('selected_city');
+  //     final hasCurrentLocation = await localStorage.getBool('has_current_location') ?? false;
+  //     isFirstLaunch.value = savedCityJson == null  || !hasCurrentLocation;
+  //
+  //   } catch (e) {
+  //     debugPrint('${AppExceptions().firstLaunch}: $e');
+  //     isFirstLaunch.value = true;
+  //   }
+  // }
 
   Future<void> _setupFirstLaunch() async {
     final currentCity = currentLocationCity.value;
 
     if (currentCity != null) {
+      final current= currentCity.city;
       selectedCity.value = currentCity;
     } else {
       final tegucigalpa = allCities.firstWhere(
@@ -149,7 +155,7 @@ class SplashController extends GetxController with ConnectivityMixin {
       );
       selectedCity.value = tegucigalpa;
     }
-    await cityStorageService.saveSelectedCity(selectedCity.value);
+    await cityStorageService.saveSelectedCity(selectedCity.value,);
     await localStorage.setBool('has_current_location', currentCity != null);
   }
 
@@ -171,8 +177,7 @@ class SplashController extends GetxController with ConnectivityMixin {
     final key = LocationUtilsService.fromCityModel(city);
     return _rawDataStorage[key] ?? {};
   }
-
-  void _updateRawForecastDataForCurrentCity() {
+void _updateRawForecastDataForCurrentCity() {
     final key = LocationUtilsService.fromCityModel(selectedCity.value!);
     if (_rawDataStorage.containsKey(key)) {
       rawForecastData.value = Map<String, dynamic>.from(_rawDataStorage[key]!);

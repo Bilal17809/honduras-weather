@@ -51,9 +51,9 @@ class CitiesController extends GetxController with ConnectivityMixin {
       final results = splashController.allCities
           .where(
             (city) =>
-                city.city.toLowerCase().contains(query.toLowerCase()) ||
-                city.cityAscii.toLowerCase().contains(query.toLowerCase()),
-          )
+        city.city.toLowerCase().contains(query.toLowerCase()) ||
+            city.cityAscii.toLowerCase().contains(query.toLowerCase()),
+      )
           .toList();
 
       if (results.isEmpty) {
@@ -81,7 +81,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
       context: Get.context!,
       onConnected: () async {
         splashController.selectedCity.value = city;
-        await splashController.cityStorageService.saveSelectedCity(city);
+        splashController.cityStorageService.saveSelectedCity(city);
         splashController.loadWeatherService;
         WidgetUpdateManager.updateWeatherWidget();
       },

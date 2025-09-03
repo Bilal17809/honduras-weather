@@ -13,6 +13,7 @@ import 'core/theme/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await AqiService.initialize();
   MobileAds.instance.initialize();
   RemoteConfigService().init();
   await AqiService.initialize();
