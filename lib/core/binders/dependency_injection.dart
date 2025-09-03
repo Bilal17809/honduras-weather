@@ -39,16 +39,21 @@ class DependencyInjection {
         localStorage: Get.find(),
         getCurrentWeather: Get.find<GetWeatherAndForecast>(),
       ),
+      fenix: true,
     );
-    Get.lazyPut(() => CityStorageService(localStorage: Get.find()));
+    Get.lazyPut(
+      () => CityStorageService(localStorage: Get.find()),
+      fenix: true,
+    );
 
     /// Cities and weather loading service
-    Get.lazyPut<LoadCitiesService>(() => LoadCitiesService());
+    Get.lazyPut<LoadCitiesService>(() => LoadCitiesService(), fenix: true);
     Get.lazyPut<LoadWeatherService>(
       () => LoadWeatherService(
         getCurrentWeather: Get.find(),
         conditionService: Get.find(),
       ),
+      fenix: true,
     );
 
     /// Controllers
@@ -61,6 +66,7 @@ class DependencyInjection {
         cityStorageService: Get.find(),
         loadWeatherService: Get.find(),
       ),
+      fenix: true,
     );
     Get.lazyPut<ConditionService>(() => ConditionService(), fenix: true);
     Get.lazyPut<AutoScrollService>(() => AutoScrollService(), fenix: true);
@@ -74,8 +80,8 @@ class DependencyInjection {
       fenix: true,
     );
     Get.lazyPut<CitiesController>(() => CitiesController(), fenix: true);
-    //
-    // /// Ads
+
+    /// Ads
     Get.lazyPut<SplashInterstitialManager>(
       () => SplashInterstitialManager(),
       fenix: true,

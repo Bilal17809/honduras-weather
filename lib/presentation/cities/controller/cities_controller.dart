@@ -12,7 +12,6 @@ class CitiesController extends GetxController with ConnectivityMixin {
   final splashController = Get.find<SplashController>();
   final conditionService = Get.find<ConditionService>();
   final homeController = Get.find<HomeController>();
-
   var hasSearchError = false.obs;
   var searchErrorMessage = ''.obs;
   var isSearching = false.obs;

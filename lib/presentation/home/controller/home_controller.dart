@@ -110,7 +110,7 @@ class HomeController extends GetxController with ConnectivityMixin {
       return;
     }
     final trackingStatus =
-    await AppTrackingTransparency.requestTrackingAuthorization();
+        await AppTrackingTransparency.requestTrackingAuthorization();
 
     switch (trackingStatus) {
       case TrackingStatus.notDetermined:
@@ -129,5 +129,4 @@ class HomeController extends GetxController with ConnectivityMixin {
         debugPrint('Unknown tracking status');
     }
   }
-
 }
