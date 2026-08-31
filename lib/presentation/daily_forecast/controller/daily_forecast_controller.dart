@@ -11,6 +11,7 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
   final autoScrollService = Get.find<AutoScrollService>();
   final scrollController = ScrollController();
   final isWeatherDataLoaded = false.obs;
+
   var selectedDayIndex = 0.obs;
   var selectedCityName = ''.obs;
   var currentWeatherCardHeight = 0.0.obs;
@@ -44,6 +45,7 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
     super.onClose();
   }
 
+
   void loadForecastData() {
     selectedCityName.value = homeController.selectedCityName;
     forecastData.value = conditionService.weeklyForecast;
@@ -53,6 +55,7 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
       forecastData.isNotEmpty && selectedDayIndex.value < forecastData.length
       ? forecastData[selectedDayIndex.value]
       : null;
+
 
   String get cityName => selectedCityName.value;
 

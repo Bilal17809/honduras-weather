@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:honduras_weather/core/global_keys/global_key.dart';
-import 'package:honduras_weather/presentation/daily_forecast/controller/daily_forecast_controller.dart';
+import '/presentation/daily_forecast/controller/daily_forecast_controller.dart';
 import '/ad_manager/ad_manager.dart';
 import '/core/animation/view/animated_bg_builder.dart';
 import '/core/theme/theme.dart';
