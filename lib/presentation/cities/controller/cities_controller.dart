@@ -29,6 +29,7 @@ class CitiesController extends GetxController with ConnectivityMixin {
     while (!splashController.isAppReady) {
       await Future.delayed(const Duration(milliseconds: 50));
     }
+
     filteredCities.value = splashController.allCities;
     _reorderCities();
     searchController.addListener(() {
@@ -46,7 +47,6 @@ class CitiesController extends GetxController with ConnectivityMixin {
 
     isSearching.value = true;
     hasSearchError.value = false;
-
     try {
       final results = splashController.allCities
           .where(
@@ -55,7 +55,6 @@ class CitiesController extends GetxController with ConnectivityMixin {
             city.cityAscii.toLowerCase().contains(query.toLowerCase()),
       )
           .toList();
-
       if (results.isEmpty) {
         hasSearchError.value = true;
         searchErrorMessage.value = 'No cities found matching "$query"';
