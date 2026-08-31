@@ -44,13 +44,10 @@ class DailyForecastController extends GetxController with ConnectivityMixin {
     isWeatherDataLoaded.value = false;
     super.onClose();
   }
-
-
   void loadForecastData() {
     selectedCityName.value = homeController.selectedCityName;
     forecastData.value = conditionService.weeklyForecast;
   }
-
   Map<String, dynamic>? get selectedDayData =>
       forecastData.isNotEmpty && selectedDayIndex.value < forecastData.length
       ? forecastData[selectedDayIndex.value]
