@@ -24,19 +24,16 @@ class CitiesController extends GetxController with ConnectivityMixin {
     Get.find<InterstitialAdManager>().checkAndDisplayAd();
     _syncSplash();
   }
-
   Future<void> _syncSplash() async {
     while (!splashController.isAppReady) {
       await Future.delayed(const Duration(milliseconds: 50));
     }
-
     filteredCities.value = splashController.allCities;
     _reorderCities();
     searchController.addListener(() {
       searchCities(searchController.text);
     });
   }
-
   void searchCities(String query) {
     if (query.isEmpty) {
       filteredCities.value = splashController.allCities;
